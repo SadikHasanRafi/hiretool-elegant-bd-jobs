@@ -14,8 +14,9 @@ const UpdateEmployeeProfile = () => {
   const [jobTitle, setJobTitle] = useState('');
   const [employmentStartDate, setEmploymentStartDate] = useState('');
   const [employmentEndDate, setEmploymentEndDate] = useState('');
-  
 
+  const [preferredJobLocation, setPreferredJobLocation] = useState("");
+  const [desiredJobTitle, setDesiredJobTitle] = useState("");
 
   
   useEffect(() => {
@@ -24,9 +25,11 @@ const UpdateEmployeeProfile = () => {
         const response = await axios.get(
           `http://localhost:5000/get-single-employee/${uid}`
         );
+        setPreferredJobLocation(response.data.payload.employee?.preferredLocation)
+        setJobTitle(response.data.payload.employee?.desiredJobTitle)
         setEmployeeData(response.data.payload.employee);
         setLoading(false);
-        // console.log( );
+        // console.log( employeeData.preferredLocation);
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -167,6 +170,17 @@ const UpdateEmployeeProfile = () => {
     event.target.reset();
   };
 
+
+  function handleUpdate(fieldName) {
+    if (fieldName === 'desiredJobTitle') {
+      console.log(employeeData?.desiredJobTitle);
+    } else if (fieldName === 'preferredJobLocation') {
+      console.log(employeeData?.preferredLocation);
+    }
+  }
+  
+  
+
   
 
   
@@ -174,6 +188,9 @@ const UpdateEmployeeProfile = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
+
+
+
   return (
     <div>
      
@@ -199,9 +216,6 @@ const UpdateEmployeeProfile = () => {
         <button type="submit" onClick={handleAddJob} className="btn btn-outline btn-primary">Add New Experience</button>
       </form>
      </div>
-
-
-
 
 
      <div>
@@ -232,13 +246,13 @@ const UpdateEmployeeProfile = () => {
      <div>
 
      <div className="flex">
-       <input type="text" defaultValue={employeeData.preferredLocation} placeholder="Preferred job location" className="input input-bordered input-accent w-full max-w-xs" />
-      <button className="btn btn-active btn-accent">Update</button>
+       <input  type="text"  value={preferredJobLocation} placeholder="Preferred job location" className="input input-bordered input-accent w-full max-w-xs" />
+      <button onClick={() => handleUpdate('preferredJobLocation')} className="btn btn-active btn-accent">Update</button>
      </div>
 
      <div className="flex">
-       <input type="text" defaultValue={employeeData.desiredJobTitle} placeholder="Entered desired title for your job" className="input input-bordered input-accent w-full max-w-xs" />
-      <button className="btn btn-active btn-accent">Update</button>
+       <input  type="text"  value={desiredJobTitle} placeholder="Entered desired title for your job" className="input input-bordered input-accent w-full max-w-xs" />
+      <button onClick={() => handleUpdate('desiredJobTitle')} className="btn btn-active btn-accent">Update</button>
      </div>
 
 
