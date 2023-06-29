@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/AuthProvider';
 import { JobContext } from '../../../../Context/JobsProvider';
 
@@ -15,31 +15,33 @@ const ShowEmployeeDetails = () => {
   const {user} = useContext(AuthContext)//company data here you have company uid
   const {selectedJobForShowEmployeeDetailsPage} = useContext(JobContext) // here we probably have job _id
   const [buttonDisable,setButtonDisable] = useState(false)
+  let params = useParams();
+
 
 
   useEffect(() => {
     const fetchEmployeeDetails = async () => {
       // Retrieve the email from local storage
       const email = localStorage.getItem('selectedEmployeeEmail');
+
+      
       if (email) {
         try {
           // Send a request to the API endpoint with the email
-          const response = await axios.get(`http://localhost:5000/get-single-user-info?email=${email}`);
+          const response = await axios.get(`http://localhost:5000/get-single-user-info?email=${params.email}`);
           const employeeData = response.data;
           console.log(employeeData);
           setEmployee(employeeData);
 
 
-          const responseEmployee = await axios.get(`http://localhost:5000/get-single-employee-info?employeeUID=${response.data.uid}`)
-          console.log("let button disable employee data")
-          responseEmployee.data.forEach((employee) => {
-            employee.calledForInterview.forEach((interview) => {
-              if (interview?.job_id===selectedJobForShowEmployeeDetailsPage) {
-                // console.log("job mongo id is ",interview?.job_id);
-                setButtonDisable(true)
-              }
-            });
-          });
+          // const responseEmployee = await axios.get(`http://localhost:5000/get-single-employee-info?employeeUID=${response.data.uid}`)
+          // console.log("let button disable employee data",responseEmployee.data)
+          // responseEmployee.data.calledForInterview.forEach((interview) => {
+          //     if (interview?.job_id===selectedJobForShowEmployeeDetailsPage) {
+          //       // console.log("job mongo id is ",interview?.job_id);
+          //       setButtonDisable(true)
+          //     }
+          // });
           
           
 

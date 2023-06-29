@@ -6,7 +6,7 @@ const EmployeesAppliedForJob = () => {
   // eslint-disable-next-line no-unused-vars
   const { getEmployeesWhoAppliedForThisJob } = useContext(JobContext);
   const [employeeData, setEmployeeData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const EmployeesAppliedForJob = () => {
 
   const handleButtonOnlick = (email) =>{
     localStorage.setItem("selectedEmployeeEmail", email);
-    navigate("/dashboard/show-employee-details")
+    navigate(`/dashboard/show-employee-details/${email}`)
     
 }
 

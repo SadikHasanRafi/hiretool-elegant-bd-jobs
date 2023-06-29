@@ -41,7 +41,8 @@ const SetEmployeeProfile = () => {
     phone: "",
     address: "",
     displayName:"" || user.displayName,
-    email:"" || user.email
+    email:"" || user.email,
+    previousNotificationCount:0,
   });
 
   const handleInputChange = (event) => {

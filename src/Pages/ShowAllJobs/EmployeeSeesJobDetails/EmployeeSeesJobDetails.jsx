@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
 import { useContext, useEffect, useState } from "react";
 
 const EmployeeSeesJobDetails = () => {
     const {user} = useContext(AuthContext)
+    const navigate = useNavigate();
     const param = useParams()    
     const {_id}= param
     const {uid} = user
@@ -13,25 +14,31 @@ const EmployeeSeesJobDetails = () => {
     const [jobDetails, setJobDetails] = useState(null);
     const [companyDetails, setCompanyDetails] = useState({})
     const [getPostedJobsByThisCompany, setGetPostedJobsByThisCompany] = useState([])
+    const [needToRender, setNeedToRender] = useState(false)
+    const [loadingPostOtherJobsByThisCompany, setLoadingPostOtherJobsByThisCompany] = useState(false)
 
     useEffect(() => {
         const fetchJobData = async () => {
         try {
+            setLoadingPostOtherJobsByThisCompany(true)
             const id = param._id
             const response = await axios.get(`http://localhost:5000/get-single-job-details-employee/${id}`);
             setJobDetails(response.data);
             const getCompanyDetails = await axios.get(`http://localhost:5000/get-company-for-employee/${response.data.uid}`);
             setCompanyDetails(getCompanyDetails.data)
-            const getPostedJobsByThisCompany = await axios.get(`http://localhost:5000/get-other-posted-jobs-by-this-company/${getCompanyDetails.data.uid}`);
-            setGetPostedJobsByThisCompany(getPostedJobsByThisCompany.data)
-            console.log(getPostedJobsByThisCompany.data)
+            const getPostedJobsByThisCompanyk = await axios.get(`http://localhost:5000/get-other-posted-jobs-by-this-company/${getCompanyDetails.data.uid}`);
+            setGetPostedJobsByThisCompany(getPostedJobsByThisCompanyk.data)
+            console.log(getPostedJobsByThisCompanyk.data)
         } catch (error) {
             console.error(error);
+        }finally{
+            setNeedToRender(false)
+            setLoadingPostOtherJobsByThisCompany(false)
         }
         };
 
         fetchJobData();
-    }, []);
+    }, [needToRender]);
 
     useEffect(() => {
         let timer;
@@ -67,6 +74,14 @@ const EmployeeSeesJobDetails = () => {
             setApplyStatus("warning");
         }
     }
+
+
+    const handleShowDetails  = (_id) => {
+        console.log(_id);
+        setNeedToRender(true)
+        navigate(`/${_id}`);
+    }
+
     return (
         <div>
             <p>{jobTitle}</p>
@@ -105,6 +120,38 @@ const EmployeeSeesJobDetails = () => {
                     <span>You already applied here...</span>
                 </div>
             )}
+
+
+{
+  loadingPostOtherJobsByThisCompany ? (
+    <p>Loading</p>
+  ) : (
+    getPostedJobsByThisCompany.length === 1 ? (
+      <p>No posted jobs available</p>
+    ) : (
+      getPostedJobsByThisCompany.map((postedJob, index) => (
+        <div key={index}>
+          <p>{index + 1}. Posted job name is {postedJob.jobTitle} and its id is {postedJob._id}</p>
+          <button className="btn btn-warning" onClick={() => handleShowDetails(postedJob._id)}>Show Details</button>
+        </div>
+      ))
+    )
+  )
+}
+
+
+
+
+                {
+                    getPostedJobsByThisCompany.length === 0 && <p>No jobs posted by this company</p>
+                }
+
+
+
+
+
+      
+
 
 
         </div>

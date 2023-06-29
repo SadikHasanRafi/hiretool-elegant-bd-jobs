@@ -100,7 +100,7 @@ import EmployeeSeesJobDetails from '../Pages/ShowAllJobs/EmployeeSeesJobDetails/
                   path:"/dashboard/show-who-applied",
                   element:<EmployeesAppliedForJob></EmployeesAppliedForJob>
                 },{
-                  path:"/dashboard/show-employee-details",
+                  path:"/dashboard/show-employee-details/:email",
                   element:<ShowEmployeeDetails></ShowEmployeeDetails>
                 }
               ]//dashboard array finishes here
