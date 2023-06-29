@@ -11,15 +11,20 @@ const EmployeeSeesJobDetails = () => {
     const {uid} = user
     const [applyStatus, setApplyStatus] = useState(null);
     const [jobDetails, setJobDetails] = useState(null);
+    const [companyDetails, setCompanyDetails] = useState({})
+    const [getPostedJobsByThisCompany, setGetPostedJobsByThisCompany] = useState([])
 
     useEffect(() => {
         const fetchJobData = async () => {
         try {
             const id = param._id
-            console.log(id)
             const response = await axios.get(`http://localhost:5000/get-single-job-details-employee/${id}`);
             setJobDetails(response.data);
-            console.log(response.data)
+            const getCompanyDetails = await axios.get(`http://localhost:5000/get-company-for-employee/${response.data.uid}`);
+            setCompanyDetails(getCompanyDetails.data)
+            const getPostedJobsByThisCompany = await axios.get(`http://localhost:5000/get-other-posted-jobs-by-this-company/${getCompanyDetails.data.uid}`);
+            setGetPostedJobsByThisCompany(getPostedJobsByThisCompany.data)
+            console.log(getPostedJobsByThisCompany.data)
         } catch (error) {
             console.error(error);
         }
@@ -65,6 +70,7 @@ const EmployeeSeesJobDetails = () => {
     return (
         <div>
             <p>{jobTitle}</p>
+            <p>company name is : <strong>{companyDetails?.companyName}</strong></p>
             <button onClick={handleApplyJob} className="btn glass bg-purple-200">Apply jobs</button>
 
 
