@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
@@ -14,6 +14,10 @@ const UpdateEmployeeProfile = () => {
   const [jobTitle, setJobTitle] = useState('');
   const [employmentStartDate, setEmploymentStartDate] = useState('');
   const [employmentEndDate, setEmploymentEndDate] = useState('');
+  const formRef = useRef(null);
+  const [formData, setFormData] = useState({});
+
+
 
   const [preferredJobLocation, setPreferredJobLocation] = useState("");
   const [desiredJobTitle, setDesiredJobTitle] = useState("");
@@ -37,7 +41,7 @@ const UpdateEmployeeProfile = () => {
     };
 
     fetchEmployeeData();
-  }, [employeeData]);
+  }, [employeeData,formData]);
 
 
   const handleRemoveJobExperience = async (index) => {
@@ -133,51 +137,37 @@ const UpdateEmployeeProfile = () => {
   };
 
 
-  const handleSubmit =async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    // Get the input field values
-    const degree = event.target[0].value;
-    const institution = event.target[1].value;
-    const subject = event.target[2].value;
-    const graduationDate = event.target[3].value;
-  
-    // Create an object with the input field values
-    const formData = {
-      degree,
-      institution,
-      subject,
-      graduationDate,
-    };
-  
-    // Log the form data
-    console.log(formData);
-    employeeData.workExperience.education.push(formData)
-    try {
-      // Make the API call
-      const response = await axios.patch(`http://localhost:5000/update-employee-profile-education/${uid}`,employeeData);
 
-      if (response.data.acknowledged) {
-        toast.success('Job added successfully!');
+    const inputs = Array.from(event.target.elements);
+    const submittedData = {};
+
+    inputs.forEach((input) => {
+      if (input.value && input.name) {
+        submittedData[input.name] = input.value;
       }
+    });
+
+    console.log(submittedData);
+
+    setLoading(true);
+    try {
+      // Make the API call here using Axios
+       const response = await axios.patch(`http://localhost:5000/update-employee-other-infos/${user.uid}`, submittedData);
+      setFormData(submittedData);
+      console.log(response)
     } catch (error) {
-      console.error(error);
-    } finally {
+      console.error('Error occurred while calling the API:', error);
+    }finally{
       setLoading(false);
+      formRef.current.reset(); // Reset the form values
     }
-  
-    // Clear the input fields
-    event.target.reset();
   };
 
 
-  function handleUpdate(fieldName) {
-    if (fieldName === 'desiredJobTitle') {
-      console.log(employeeData?.desiredJobTitle);
-    } else if (fieldName === 'preferredJobLocation') {
-      console.log(employeeData?.preferredLocation);
-    }
-  }
+
+
   
   
 
@@ -231,7 +221,6 @@ const UpdateEmployeeProfile = () => {
         )
       }
 
-{/* onSubmit={handleAddEducation} */}
       <form onSubmit={handleSubmit} className="flex"> 
           <input type="text" placeholder="Enter degree name" className="input input-bordered input-primary w-full max-w-xs" />
           <input type="text" placeholder="Enter institution name" className="input input-bordered input-primary w-full max-w-xs" />
@@ -242,21 +231,57 @@ const UpdateEmployeeProfile = () => {
         </form>
      </div>
 
+    <form ref={formRef} onSubmit={handleSubmit}>
+      <p>Current desired job title: {employeeData?.desiredJobTitle}</p>
+      <label htmlFor="desiredJobTitle">
+        Desired Job Title
+        <input
+          type="text"
+          id="desiredJobTitle"
+          name="desiredJobTitle"
+          placeholder="Desired Job Title"
+        />
+      </label>
+      
 
-     <div>
+      <p>Current Preferred job location: {employeeData?.preferredJobLocation}</p>
+      <label htmlFor="preferredJobLocation">
+        Preferred Job Location
+        <input
+          type="text"
+          id="preferredJobLocation"
+          name="preferredJobLocation"
+          placeholder="Preferred Job Location"
+        />
+      </label>
+      
 
-     <div className="flex">
-       <input  type="text"  value={preferredJobLocation} placeholder="Preferred job location" className="input input-bordered input-accent w-full max-w-xs" />
-      <button onClick={() => handleUpdate('preferredJobLocation')} className="btn btn-active btn-accent">Update</button>
-     </div>
+      <p>Current phone number: {employeeData?.phone}</p>
+      <label htmlFor="phone">
+        Phone Number
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          placeholder="Phone Number"
+        />
+      </label>
+      
 
-     <div className="flex">
-       <input  type="text"  value={desiredJobTitle} placeholder="Entered desired title for your job" className="input input-bordered input-accent w-full max-w-xs" />
-      <button onClick={() => handleUpdate('desiredJobTitle')} className="btn btn-active btn-accent">Update</button>
-     </div>
+      <p>Current Address: {employeeData?.address}</p>
+      <label htmlFor="address">
+        Address
+        <input
+          type="text"
+          id="address"
+          name="address"
+          placeholder="Address"
+        />
+      </label>
 
-
-     </div>
+      <button type="submit" className="btn btn-outline btn-secondary">Update </button>
+      
+    </form>
 
 
 
@@ -418,7 +443,7 @@ const UpdateEmployeeProfile = () => {
       joiningDate: joiningDate,
       leavingDate: leavingDate,
     };
-    employeeData.workExperience.jobHistory.push(updatedWorkExperience)
+    employeeData?.workExperience.jobHistory.push(updatedWorkExperience)
     console.log("newEmployee:",employeeData)
   };
 
