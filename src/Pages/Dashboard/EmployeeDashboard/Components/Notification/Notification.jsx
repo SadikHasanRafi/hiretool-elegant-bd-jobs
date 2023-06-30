@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unsafe-optional-chaining */
 
 import { useEffect } from "react";
@@ -5,9 +7,11 @@ import { useEffect } from "react";
 const Notification = (props) => {
 
     // eslint-disable-next-line react/prop-types
-    const {employeeNotification} = props
+    const {interviewWith} = props
 
+    const {job,company,interviewTime} = interviewWith
 
+console.log(interviewTime)
 
 
     
@@ -22,7 +26,7 @@ const Notification = (props) => {
 
     return (
         <div>
-            <p>mew mew</p>
+            <p>You have an interview with {company?.companyName} as a {job.jobTitle} at {interviewTime.interviewTime} in {interviewTime.interviewDate}</p>
         </div>
     );
 };
