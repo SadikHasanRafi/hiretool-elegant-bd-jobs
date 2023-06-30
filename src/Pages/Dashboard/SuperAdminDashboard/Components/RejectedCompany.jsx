@@ -18,7 +18,7 @@ const RejectedCompany = () => {
             const mew=[]
             data.forEach((k) => {
                 console.log("k = ",k?.approval)
-                if (!k?.approval) {
+                if (!k?.approval && k.isRejected==="1") {
                     console.log(k)
                     mew.push(k)
                 }
@@ -48,6 +48,8 @@ const RejectedCompany = () => {
         setApprovedButtonPressed(true)
         try {
           const response = await axios.get(`http://localhost:5000/get-company-details/${uid}`);
+          // eslint-disable-next-line no-unused-vars
+          const result = await axios.put(`http://localhost:5000/update-single-company/${uid}`, { isRejected: "2" });
           // eslint-disable-next-line no-unused-vars
           const data = response.data;
           console.log(response.data)
@@ -114,7 +116,7 @@ const RejectedCompany = () => {
                           <button className="btn btn-ghost btn-xs">{company.phone}</button>
                         </td>
                         <td>
-                          <button onClick={()=>handleRejectToApproved(company.uid)} className="btn btn-outline btn-accent">Details {company.uid}</button>
+                          <button onClick={()=>handleRejectToApproved(company.uid)} className="btn btn-outline btn-accent">Details approve from reject to approve {company.uid}</button>
                         </td>
                       </tr>
                     ))}
