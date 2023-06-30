@@ -18,9 +18,10 @@ const EmployeeNotifications = () => {
 
         // console.log(response.data?.payload?.employee)
         const updatedDoc = {previousNotificationCount: response.data?.payload?.employee.calledForInterview.length}
-        const x  = await axios.patch(`http://localhost:5000/update-single-employee/${uid}`,updatedDoc)
-                                    .then((x)=>{
-                                      if (x.modifiedCount!==0) {
+        const x = await axios.patch(`http://localhost:5000/update-single-employee/${uid}`,updatedDoc)
+                                    .then((y)=>{
+                                      console.log(y.data.modifiedCount)
+                                      if (y.data.modifiedCount!==0) {
                                         localStorage.removeItem("badge")
                                       }
                                     })

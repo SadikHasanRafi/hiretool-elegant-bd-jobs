@@ -11,7 +11,7 @@ const SetComPanyProfile = () => {
   
     const [formData, setFormData] = useState({
       companyName: "",
-      companyLogo: "",
+      companyLogo: user?.photoURL || null,
       industry: "",
       registerID:"",
       locations: "",
@@ -26,7 +26,8 @@ const SetComPanyProfile = () => {
       technologies: [],
       approval:false,
       jobs: [],
-      appointmentDetails:[]
+      appointmentDetails:[],
+      isRejected:"0"
     });
   
     const handleChange = (event) => {

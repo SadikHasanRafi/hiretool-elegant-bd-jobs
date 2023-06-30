@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
 import CompanyDashboard from "./CompanyDashboard/CompanyDashboard";
 import EmployeeDashboard from "./EmployeeDashboard/EmployeeDashboard";
+import SuperAdminDashboard from "./SuperAdminDashboard/SuperAdminDashboard";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -35,37 +36,20 @@ const Dashboard = () => {
 
   return (
     <div>
-      {isLoading ? (
-        <p>Loading...</p> 
-      ) : <>
-
-
-
-
-
-
-
-
-{
-    role === "company" ?
-    <CompanyDashboard></CompanyDashboard>
-    :
-    <EmployeeDashboard></EmployeeDashboard>
-}
-
-
-
-
-
-
-
-
-
-
-
-</>
-      }
-    </div>
+    {isLoading ? (
+      <p>Loading...</p> 
+    ) : (
+      <>
+        {role === "superAdmin" ? (
+          <SuperAdminDashboard />
+        ) : role === "company" ? (
+          <CompanyDashboard />
+        ) : (
+          <EmployeeDashboard />
+        )}
+      </>
+    )}
+  </div>
   );
 };
 

@@ -24,6 +24,10 @@ import ShowEmployeeDetails from '../Pages/Dashboard/CompanyDashboard/Components/
 import SetEmployeeProfile from '../Pages/SetEmployeeProfile/SetEmployeeProfile';
 import ShowAllJobs from '../Pages/ShowAllJobs/ShowAllJobs';
 import EmployeeSeesJobDetails from '../Pages/ShowAllJobs/EmployeeSeesJobDetails/EmployeeSeesJobDetails';
+import ShowAllPendingCompany from '../Pages/Dashboard/SuperAdminDashboard/Components/ShowAllPendingCompany';
+import ShowAllActiveEmployees from '../Pages/Dashboard/SuperAdminDashboard/Components/ShowAllActiveEmployees';
+import ShowAllRegisteredCompany from '../Pages/Dashboard/SuperAdminDashboard/Components/ShowAllRegisteredCompany';
+import RejectedCompany from '../Pages/Dashboard/SuperAdminDashboard/Components/RejectedCompany';
 
 
     
@@ -57,6 +61,9 @@ import EmployeeSeesJobDetails from '../Pages/ShowAllJobs/EmployeeSeesJobDetails/
               path:"/show-all-jobs",
               element:<ShowAllJobs></ShowAllJobs>
             },{
+              path:"/contact-us",
+              element:<p>Contact us page not builded</p>
+            },{
               element:<EmployeeSeesJobDetails></EmployeeSeesJobDetails>,
               path:"/:_id"
             },{
@@ -64,7 +71,7 @@ import EmployeeSeesJobDetails from '../Pages/ShowAllJobs/EmployeeSeesJobDetails/
               element:<Dashboard></Dashboard>,
               children: [
                 {
-                  path:"/dashboard/my-profile",
+                  path:"/dashboard/my-profile", //employee profile
                   element:<MyProfile></MyProfile>
                 },{
                   path:"/dashboard/update-employee-profile",
@@ -102,6 +109,18 @@ import EmployeeSeesJobDetails from '../Pages/ShowAllJobs/EmployeeSeesJobDetails/
                 },{
                   path:"/dashboard/show-employee-details/:email",
                   element:<ShowEmployeeDetails></ShowEmployeeDetails>
+                },{
+                  path:"/dashboard/show-pending-company",
+                  element:<ShowAllPendingCompany></ShowAllPendingCompany>
+                },{
+                  path:"/dashboard/show-all-active-employee",
+                  element:<ShowAllActiveEmployees></ShowAllActiveEmployees>
+                },{
+                  path:"/dashboard/show-all-registered-company",
+                  element:<ShowAllRegisteredCompany></ShowAllRegisteredCompany>
+                },{
+                  path:"/dashboard/show-all-rejected-company",
+                  element:<RejectedCompany></RejectedCompany>
                 }
               ]//dashboard array finishes here
             }
