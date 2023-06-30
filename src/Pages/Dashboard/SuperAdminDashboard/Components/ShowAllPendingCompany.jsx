@@ -9,6 +9,7 @@ const ShowAllPendingCompany = () => {
   const [modalLoading, setModalLoading] = useState(false);
   const [approvedButtonPressed, setApprovedButtonPressed] = useState(false);
   const [disableApproveRejectButton, setDisableApproveRejectButton] = useState(false)
+  const [clickRejectedButton, setClickRejectedButton] = useState(false)
 
 
   useEffect(() => {
@@ -19,7 +20,8 @@ const ShowAllPendingCompany = () => {
         const mew=[]
         data.forEach((k) => {
             console.log("k = ",k?.approval)
-            if (!k?.approval) {
+            if (!k?.approval && k?.isRejected === "0") {
+          
                 console.log(k)
                 mew.push(k)
             }
@@ -33,6 +35,7 @@ const ShowAllPendingCompany = () => {
       } finally {
         setDisableApproveRejectButton(true)
         setApprovedButtonPressed(false)
+        setClickRejectedButton(false)
         setIsLoading(false);
       }
     };
@@ -42,7 +45,7 @@ const ShowAllPendingCompany = () => {
     return () => {
       // Perform clean-up tasks if needed
     };
-  }, [approvedButtonPressed]);
+  }, [approvedButtonPressed,clickRejectedButton]);
 
 
   const handleCompanyDetails = async (uid) => {
@@ -82,6 +85,7 @@ const ShowAllPendingCompany = () => {
 
   const handleCompanyApprovalReject = async (uid) => {
     setDisableApproveRejectButton(true);
+    setClickRejectedButton(true)
     setModalLoading(true)
     try {
       // eslint-disable-next-line no-unused-vars
@@ -91,6 +95,8 @@ const ShowAllPendingCompany = () => {
       console.error("Error updating company:", error);
     }finally {
         setModalLoading(false)
+        
+        
     }
   };
   
@@ -192,7 +198,7 @@ const ShowAllPendingCompany = () => {
               <button onClick={()=>handleCompanyApprovalAccept(showCompanyDetails.uid)} className={!showCompanyDetails?.approval ? "btn btn-outline btn-success" : "btn btn-disabled"} >Accept</button>
               <button onClick={()=>handleCompanyApprovalReject(showCompanyDetails.uid)} className={`${disableApproveRejectButton} ? btn btn-outline btn-error : btn btn-outline btn-error ` } >Reject</button>
           </form>
-      </dialog>
+        </dialog>
          }
           </div>
 

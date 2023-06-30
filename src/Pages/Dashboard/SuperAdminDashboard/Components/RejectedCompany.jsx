@@ -49,7 +49,7 @@ const RejectedCompany = () => {
         try {
           const response = await axios.get(`http://localhost:5000/get-company-details/${uid}`);
           // eslint-disable-next-line no-unused-vars
-          const result = await axios.put(`http://localhost:5000/update-single-company/${uid}`, { isRejected: "2" });
+          const result = await axios.put(`http://localhost:5000/update-single-company/${uid}`, {approval:true, isRejected: "2" });
           // eslint-disable-next-line no-unused-vars
           const data = response.data;
           console.log(response.data)
@@ -59,6 +59,8 @@ const RejectedCompany = () => {
             setApprovedButtonPressed(false)
         }
       };
+
+
 
 
 

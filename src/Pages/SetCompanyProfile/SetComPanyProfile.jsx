@@ -79,6 +79,7 @@ const SetComPanyProfile = () => {
             <input
               type="text"
               name="companyLogo"
+              disabled
               value={formData.companyLogo}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded px-3 py-2"
