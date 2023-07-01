@@ -1,10 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,useRef } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
+// import ReactPDF, {  PDFDownloadLink } from "@react-pdf/renderer";
+// import CVpdf from "./CVpdf";
+import { useReactToPrint } from "react-to-print";
+import Swal from "sweetalert2";
+
 
 const MyProfile = () => {
   const { user } = useContext(AuthContext);
+  const componentPDF = useRef()
   const [userInfo, setUserInfo] = useState(null);
   // const [badgeClass, setBadgeClass] = useState("")
+  // ReactPDF.render(<CVpdf />, `${user.displayName}/example.pdf`);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -22,14 +29,35 @@ const MyProfile = () => {
     };
 
     fetchUserInfo();
-  }, [user.uid]);
+  }, []);
+
+
+  const handleDownloadPDF = useReactToPrint({
+    content:()=>componentPDF.current,
+    documentTitle:"cv",
+    onAfterPrint:()=>Swal.fire('Good job!','You clicked the button!','success')
+  })
 
   return (
     <div>
       {userInfo ? (
        <>
-        <p>Email: {userInfo.email}</p>
-        <p>Role: {userInfo.role}</p>
+       
+       
+         <div ref={componentPDF}>
+
+
+       
+  
+     
+        <p>email : {userInfo.email}</p>
+        <p>role: {userInfo.role}</p>
+
+        <button onClick={handleDownloadPDF} className="btn w-32  btn-outline btn-primary">Download</button>
+        </div>
+
+
+
        </>
       ) : (
         <p>Loading user info...</p>

@@ -237,12 +237,7 @@ const UpdateEmployeeProfile = () => {
     }
   };
 
-  
-  
 
-  
-
-  
 
   if (loading) {
     return <p>Loading...</p>;
@@ -253,6 +248,21 @@ const UpdateEmployeeProfile = () => {
   return (
     <div>
      
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
      <div>
       <p>work experience section</p>
      {
