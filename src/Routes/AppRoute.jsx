@@ -28,6 +28,7 @@ import ShowAllPendingCompany from '../Pages/Dashboard/SuperAdminDashboard/Compon
 import ShowAllActiveEmployees from '../Pages/Dashboard/SuperAdminDashboard/Components/ShowAllActiveEmployees';
 import ShowAllRegisteredCompany from '../Pages/Dashboard/SuperAdminDashboard/Components/ShowAllRegisteredCompany';
 import RejectedCompany from '../Pages/Dashboard/SuperAdminDashboard/Components/RejectedCompany';
+import Review from '../Pages/Reviews/Review';
 
 
     
@@ -63,6 +64,9 @@ import RejectedCompany from '../Pages/Dashboard/SuperAdminDashboard/Components/R
             },{
               path:"/contact-us",
               element:<p>Contact us page not builded</p>
+            },{
+              path:"/review",
+              element:<Review></Review>
             },{
               element:<EmployeeSeesJobDetails></EmployeeSeesJobDetails>,
               path:"/:_id"
