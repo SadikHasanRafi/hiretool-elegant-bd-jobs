@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 const UpdateCompanyProfile = () => {
     const { user } = useContext(AuthContext);
@@ -31,20 +32,26 @@ const UpdateCompanyProfile = () => {
   }, []);
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(formData)
-    // Filter out the empty fields from formData
-    const nonEmptyFields = Object.entries(formData).filter(
-      ([key, value]) => value.trim() !== ""
-    );
-
-    // Log the non-empty fields
-    nonEmptyFields.forEach(([key, value]) => {
-    //   console.log(`${key}: ${value}`);
-    });
+  
+    // Show loader
+    // Assuming you have a state variable `isLoading` to track the loading state
+  
+    try {
+      // console.log(formData);
+      const res = await axios.put(`http://localhost:5000/update-single-company/${uid}`, formData);
+      console.log(res.data.acknowledged);
+      if (res.data.acknowledged) {
+        toast.success('Company information updated...')
+      }
+      setFormData({});
+  
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -61,45 +68,52 @@ const UpdateCompanyProfile = () => {
             <label className="label">
                 <span className="label-text">Currently company name is {company?.companyName}</span>
             </label>
-            <input  onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+            <input name="companyName"  onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
         </div>
 
         <div className="form-control w-full max-w-xs">
             <label className="label">
                 <span className="label-text">Working Industry {company?.industry}</span>
             </label>
-            <input  onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+            <input  onChange={handleInputChange} name="industry" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
         </div>
 
         <div className="form-control w-full max-w-xs">
             <label className="label">
                 <span className="label-text">website {company?.website}</span>
             </label>
-            <input  onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+            <input name="website" onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
         </div>
+
+
         <div className="form-control w-full max-w-xs">
             <label className="label">
                 <span className="label-text">phone {company?.phone}</span>
             </label>
-            <input  onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+            <input name="phone" onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
         </div>
         <div className="form-control w-full max-w-xs">
             <label className="label">
                 <span className="label-text">description {company?.description}</span>
             </label>
-            <input  onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+            <input name="description" onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
         </div>
         <div className="form-control w-full max-w-xs">
             <label className="label">
                 <span className="label-text">facebook {company?.facebook}</span>
             </label>
-            <input  onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+            <input name="facebook" onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
         </div>
 
         <button className="btn btn-accent">Update</button>
         
         
         </form>
+
+
+        <Toaster position="top-center" reverseOrder={false} />
+
+
 
     </div>
   );

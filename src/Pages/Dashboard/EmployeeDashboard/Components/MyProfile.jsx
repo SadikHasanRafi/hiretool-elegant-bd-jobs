@@ -4,7 +4,7 @@ import { AuthContext } from "../../../../Context/AuthProvider";
 const MyProfile = () => {
   const { user } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState(null);
-  const [badgeClass, setBadgeClass] = useState("")
+  // const [badgeClass, setBadgeClass] = useState("")
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -14,7 +14,7 @@ const MyProfile = () => {
         if (data.previousNotificationCount !== undefined && Array.isArray(data.calledForInterview) && data.previousNotificationCount !== data.calledForInterview.length) {
           localStorage.setItem("badge","badge badge-primary")
         }
-        // console.log(data)
+        console.log(data)
         setUserInfo(data);
       } catch (error) {
         console.error("Error fetching user info:", error);

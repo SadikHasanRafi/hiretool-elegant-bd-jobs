@@ -7,6 +7,7 @@ import { Toaster, toast } from "react-hot-toast";
 const SetEmployeeProfile = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate()
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false)
   const [employeeData, setEmployeeData] = useState({
     workExperience: {
@@ -116,18 +117,7 @@ const SetEmployeeProfile = () => {
     }));
   };
 
-  const handleCertificationChange = (event, index) => {
-    const { value } = event.target;
-    setEmployeeData((prevData) => ({
-      ...prevData,
 
-
-      certifications: prevData.certifications.map(
-          (cert, i) => (i === index ? value : cert)
-        ),
-
-    }));
-  };
 
   const handleAddKeySkill = () => {
     setEmployeeData((prevData) => ({
@@ -141,13 +131,20 @@ const SetEmployeeProfile = () => {
   const handleAddCertification = () => {
     setEmployeeData((prevData) => ({
       ...prevData,
-     
-        certifications: [
-          ...prevData.certifications,
-        ],
-
+      certifications: [...prevData.certifications, ""],
     }));
   };
+  
+  const handleCertificationChange = (event, index) => {
+    const { value } = event.target;
+    setEmployeeData((prevData) => ({
+      ...prevData,
+      certifications: prevData.certifications.map((cert, i) =>
+        i === index ? value : cert
+      ),
+    }));
+  };
+  
 
   const handleWorkExperienceInputChange = (event, index) => {
     const { name, value } = event.target;
@@ -277,6 +274,7 @@ const SetEmployeeProfile = () => {
         Add Skill
       </button>
 
+        <br />
       {employeeData.certifications.map(
         (cert, index) => (
           <div key={index}>
@@ -285,11 +283,12 @@ const SetEmployeeProfile = () => {
               value={cert}
               onChange={(e) => handleCertificationChange(e, index)}
               placeholder="Certification"
+              className="input input-bordered input-accent w-full max-w-xs" 
             />
           </div>
         )
       )}
-      <button type="button" onClick={handleAddCertification}>
+      <button type="button" onClick={handleAddCertification} className="btn btn-outline btn-accent" >
         Add Certification
       </button>
       <h3>Job Preferences</h3>

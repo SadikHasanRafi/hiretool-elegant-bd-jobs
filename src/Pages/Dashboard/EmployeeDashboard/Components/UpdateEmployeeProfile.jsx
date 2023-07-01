@@ -16,7 +16,10 @@ const UpdateEmployeeProfile = () => {
   const [employmentEndDate, setEmploymentEndDate] = useState('');
   const formRef = useRef(null);
   const [formData, setFormData] = useState({});
-
+  const [institution, setInstitution] = useState("")
+  const [degree, setDegree] = useState("")
+  const [major, setMajor] = useState("")
+  const [graduationDate, setGraduationDate] = useState("")
 
 
   const [preferredJobLocation, setPreferredJobLocation] = useState("");
@@ -37,6 +40,8 @@ const UpdateEmployeeProfile = () => {
       } catch (error) {
         console.error(error);
         setLoading(false);
+      }finally{
+        // console.log(employeeData?.workExperience?.education)
       }
     };
 
@@ -137,6 +142,73 @@ const UpdateEmployeeProfile = () => {
   };
 
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   const inputs = Array.from(event.target.elements);
+  //   const submittedData = {};
+
+  //   inputs.forEach((input) => {
+  //     if (input.value && input.name) {
+  //       submittedData[input.name] = input.value;
+  //     }
+  //   });
+
+  //   console.log(submittedData);
+
+  //   setLoading(true);
+  //   try {
+  //     // Make the API call here using Axios
+  //      const response = await axios.patch(`http://localhost:5000/update-employee-other-infos/${user.uid}`, submittedData);
+  //     setFormData(submittedData);
+  //     console.log(response)
+  //   } catch (error) {
+  //     console.error('Error occurred while calling the API:', error);
+  //   }finally{
+  //     setLoading(false);
+  //     formRef.current.reset(); // Reset the form values
+  //   }
+  // };
+
+  const handleAddEducation = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    const formData = {
+      institution,
+      degree,
+      major,
+      graduationDate
+    }
+
+    console.log(formData)
+
+    employeeData.workExperience.education.push(formData)
+    console.log(employeeData.workExperience.education)
+    try {
+      // Make the API call
+      const response = await axios.patch(`http://localhost:5000/update-employee-profile-education/${uid}`,employeeData);
+
+      if (response.data.acknowledged) {
+        toast.success('Job added successfully!');
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+
+    // Clear the input fields
+    setInstitution('');
+    setDegree('');
+    setMajor('');
+    setGraduationDate('');
+
+
+
+
+  }
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -164,9 +236,6 @@ const UpdateEmployeeProfile = () => {
       formRef.current.reset(); // Reset the form values
     }
   };
-
-
-
 
   
   
@@ -198,10 +267,10 @@ const UpdateEmployeeProfile = () => {
       }
 
       <form className="flex">
-        <input value={company}           onChange={(e) => setCompany(e.target.value)}  type="text" placeholder="Enter company name" className="input input-bordered input-primary w-full max-w-xs" />
-        <input value={jobTitle}           onChange={(e) => setJobTitle(e.target.value)} type="text" placeholder="Enter you job title" className="input input-bordered input-primary w-full max-w-xs" />
-        <input  value={employmentStartDate}    onChange={(e) => setEmploymentStartDate(e.target.value)}  type="text" placeholder="Enter joining date" className="input input-bordered input-primary w-full max-w-xs" />
-        <input  value={employmentEndDate}      onChange={(e) => setEmploymentEndDate(e.target.value)} type="text" placeholder="Enter leaving date" className="input input-bordered input-primary w-full max-w-xs" />
+        <input            onChange={(e) => setCompany(e.target.value)}  type="text" placeholder="Enter company name" className="input input-bordered input-primary w-full max-w-xs" />
+        <input            onChange={(e) => setJobTitle(e.target.value)} type="text" placeholder="Enter you job title" className="input input-bordered input-primary w-full max-w-xs" />
+        <input   onChange={(e) => setEmploymentStartDate(e.target.value)}  type="text" placeholder="Enter joining date" className="input input-bordered input-primary w-full max-w-xs" />
+        <input     onChange={(e) => setEmploymentEndDate(e.target.value)} type="text" placeholder="Enter leaving date" className="input input-bordered input-primary w-full max-w-xs" />
 
         <button type="submit" onClick={handleAddJob} className="btn btn-outline btn-primary">Add New Experience</button>
       </form>
@@ -221,13 +290,13 @@ const UpdateEmployeeProfile = () => {
         )
       }
 
-      <form onSubmit={handleSubmit} className="flex"> 
-          <input type="text" placeholder="Enter degree name" className="input input-bordered input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Enter institution name" className="input input-bordered input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Enter subject name" className="input input-bordered input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Enter graduation date" className="input input-bordered input-primary w-full max-w-xs" />
+      <form className="flex"> 
+          <input onChange={(e) =>{setDegree(e.target.value)}} type="text" placeholder="Enter degree name" className="input input-bordered input-primary w-full max-w-xs" />
+          <input onChange={(e) =>{setInstitution(e.target.value)}} type="text" placeholder="Enter institution name" className="input input-bordered input-primary w-full max-w-xs" />
+          <input onChange={(e) =>{setMajor(e.target.value)}} type="text" placeholder="Enter subject name" className="input input-bordered input-primary w-full max-w-xs" />
+          <input onChange={(e) =>{setGraduationDate(e.target.value)}} type="text" placeholder="Enter graduation date" className="input input-bordered input-primary w-full max-w-xs" />
 
-          <button type="submit" className="btn btn-outline btn-primary">Add new educational qualification</button>
+          <button type="submit" onClick={handleAddEducation} className="btn btn-outline btn-primary">Add new educational qualification</button>
         </form>
      </div>
 
