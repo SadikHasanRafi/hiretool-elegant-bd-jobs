@@ -1,42 +1,24 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.card-style{
+  @apply card bg-base-100 border-[0.5px] transition-all hover:bg-black hover:bg-opacity-[2%];
+}
+.btn-style{
+  @apply btn bg-primary text-base-100 px-5 normal-case text-[16px] font-medium border-none hover:bg-neutral transition-all;
+}
+.btnOnlyText{
+  @apply btn bg-transparent hover:text-primary px-5 normal-case text-[16px] font-medium border-none hover:bg-transparent transition-all;
+}
+.btn-stroked{
+  @apply btn btn-outline btn-primary text-primary  hover:bg-primary hover:border-primary normal-case;
+}
+.card-clicked{
+  @apply focus-visible:outline focus-visible:outline-primary;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

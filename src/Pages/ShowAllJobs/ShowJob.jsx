@@ -4,6 +4,7 @@ import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import { Toaster, toast } from "react-hot-toast";
 
 const ShowJob = ({ job }) => {
   const { _id, jobTitle, jobDescription } = job;
@@ -18,6 +19,8 @@ const ShowJob = ({ job }) => {
     });
     if (response.data === "already saved") {
       setSetSavedStatus(true);
+    }else{
+      toast.success('Successfully toasted!')
     }
   };
 
@@ -66,6 +69,10 @@ const ShowJob = ({ job }) => {
           </div>
         </>
       )}
+      <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
     </div>
   );
 };

@@ -1,6 +1,9 @@
 import  { useEffect, useState } from "react";
 import axios from "axios";
-
+import FeaturedJobs from "./FeaturedJobs/FeaturedJobs";
+import Header from "./Header/Header";
+import Industries from "./Industries/Industries";
+import AboutUs from "../AboutUs/AboutUs"
 const Home = () => {
 
   const [totalJobs, setTotalJobs] = useState(0)
@@ -28,7 +31,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="hero min-h-screen bg-base-200">
+      {/* <div className="hero min-h-screen bg-base-200">
         <div className="hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Hello there</h1>
@@ -43,7 +46,11 @@ const Home = () => {
             <button className="btn btn-primary">Get Started</button>
           </div>
         </div>
-      </div>
+      </div> */}
+        <Header></Header>
+        <Industries></Industries>
+        <FeaturedJobs></FeaturedJobs>
+        <AboutUs totalCompany={totalCompany} totalEmployee={totalEmployee} totalJobs={totalJobs}></AboutUs>
     </div>
   );
 };
