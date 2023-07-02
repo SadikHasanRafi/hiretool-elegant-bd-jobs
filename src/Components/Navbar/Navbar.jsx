@@ -1,62 +1,62 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { useContext } from "react";
+import logo from "../../assets/logo.svg"
+import alternateImg from "../../assets/undefinedImg.jpg"
+
 
 const Navbar = () => {
   const { logOut, user } = useContext(AuthContext);
 
+
+
+
+  const menuItems = (
+    <>
+    <NavLink   className={({ isActive }) => isActive ? "text-primary btnOnlyText" : "text-black btnOnlyText"} to="/show-all-jobs">All Jobs</NavLink>
+    <NavLink   className={({ isActive }) => isActive ? "text-primary btnOnlyText" : "text-black btnOnlyText"} to="/review">Reviews</NavLink>
+</>
+);
+
   return (
-    <div>
-      <div className="navbar bg-[#E2FCEC]">
-        <div className="flex-1">
-          <div className="join join-vertical lg:join-horizontal">
-            <Link to="/">
-              <button className="btn join-item">Home</button>
-            </Link>
-
-            {user?.email ? (
-              <button className="btn join-item" onClick={() => logOut()}>
-                Log out
-              </button>
-            ) : (
-              <>
-                <Link to="login">
-                  <button className="btn join-item">log in</button>
-                </Link>
-                <Link to="signup">
-                  <button className="btn join-item">Sign Up</button>
-                </Link>
-              </>
-            )}
-          </div>
+    <div className="border-b-[1px] sticky top-0 z-10 w-full bg-white bg-opacity-90 backdrop-blur-md">
+     <div className="navbar bg-transparent p-2 bg-base-100 md:w-4/5 mx-auto">
+        <div className="navbar-start"> 
+          <NavLink   className={({ isActive }) => isActive ? "text-primary" : "text-black"} to="/"><img src={logo} className="h-7" alt="logo" /></NavLink>
         </div>
-
-              <div>
-                <Link to="/show-all-jobs" ><button className="btn btn-outline btn-accent" >All Jobs</button>\</Link>
-              </div>
-
-        <div className="flex-none gap-2">
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 border-2 rounded-full">
-                <img src={user?.photoURL} alt="User Avatar" />
+        <div className="navbar-end">
+          <ul className="menu menu-horizontal px-1">{menuItems}</ul>
+          {user?.email ? (
+            <>
+            <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="avatar">
+              <div className="w-10 rounded-full">
+                <img src={user?.photoURL || alternateImg} alt="User Avatar" />
               </div>
             </label>
             <ul
               tabIndex={0}
-              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-            >
+              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
               <li>
-                <Link to="/dashboard"><button>Dashboard</button></Link>
+                <NavLink   className={({ isActive }) => isActive ? "text-primary" : "text-black"} to="/dashboard">
+                  <button>Dashboard</button>
+                </NavLink>
               </li>
               <li>
                 <button onClick={() => logOut()}>Logout</button>
               </li>
             </ul>
           </div>
+            </>
+          ) : (
+            <>
+          <NavLink   className={({ isActive }) => isActive ? "text-primary btnOnlyText" : "text-black btnOnlyText"} to="/login">Login</NavLink>
+          <NavLink   className={({ isActive }) => isActive ? "text-primary btn-style" : "text-black btn-style"} to="/signup">Sign Up</NavLink>
+            </>
+          )}
         </div>
       </div>
-    </div>
+        </div>
   );
 };
 

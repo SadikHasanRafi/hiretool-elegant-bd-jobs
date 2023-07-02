@@ -35,7 +35,7 @@ const PostedJobs = () => {
         <p>waiting</p>
         :
         <>
-        <p>Posted jobs:</p>
+        <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-5">Posted Jobs</p>
       {jobs.map((job) => (
 
         <PostedJob

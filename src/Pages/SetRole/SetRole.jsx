@@ -5,6 +5,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import jobSeeker from "../../assets/Search engines-bro.svg";
+import jobGiver from "../../assets/Recommendation letter-bro.svg";
 
 const SetRole = () => {
 
@@ -102,10 +104,52 @@ const SetRole = () => {
 
     return (
         <div>
-            <button className="btn btn-outline btn-primary" onClick={handleOnclickCompany}>Company</button>
+            {/* <button className="btn btn-outline btn-primary" onClick={handleOnclickCompany}>Company</button>
             <button className="btn btn-outline btn-secondary" onClick={handleOnclickEmployee}>Employee</button>
-            <Toaster />
+            <Toaster /> */}
 
+
+
+            <div className="w-full justify-center flex flex-col items-center min-h-screen">
+      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-8">
+        Select your role
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:w-[45vw] w-[90vw] gap-5">
+        <div
+          className="card card-style cursor-pointer bg-white" onClick={handleOnclickEmployee}>
+          <figure>
+            <img
+              src={jobSeeker}
+              alt="Shoes"
+              className="h-64"
+              height={250}
+              width={250}
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title justify-center">Employee</h2>
+          </div>
+        </div>
+        <div
+          className="card card-style cursor-pointer bg-white" onClick={handleOnclickCompany}>
+          <figure>
+            <img
+              src={jobGiver}
+              alt="Shoes"
+              className="h-64"
+              height={250}
+              width={250}
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title justify-center">
+              Company
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+            <Toaster></Toaster>
         </div>
     );
 };

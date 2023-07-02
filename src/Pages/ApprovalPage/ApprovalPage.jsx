@@ -13,7 +13,9 @@ const ApprovalPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/get-company-details/${user.uid}`);
+        const response = await axios.get(
+          `http://localhost:5000/get-company-details/${user.uid}`
+        );
         const data = response.data;
         console.log(data.approval);
         setIsApproved(data?.approval);
@@ -41,19 +43,23 @@ const ApprovalPage = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className="min-h-[60vh] flex justify-center items-center">
           {isApproved && isRejected === "2" ? (
             <>
-              <p>Approved</p>
-              <button className="btn btn-outline" onClick={handleOnClick}>Go to dashboard</button>
+              <p className="text-xl mr-3 text-green-500">Approved </p>
+              <button className="btn-style" onClick={handleOnClick}>
+                Go to dashboard
+              </button>
             </>
           ) : isRejected === "1" ? (
             <div>
-              <p>You have been rejected by the authority. For more details</p>
-              <Link to="/contact-us"><button>Contact us</button></Link>
+              <p className="text-xl">You have been rejected by the authority. For more details</p>
+              <Link to="/contact-us">
+                <button className="underline">Contact us</button>
+              </Link>
             </div>
           ) : isRejected === "0" ? (
-            <p>We will soon approve your joining request</p>
+              <p  className="text-xl">We will soon approve your joining request</p>
           ) : null}
         </div>
       )}

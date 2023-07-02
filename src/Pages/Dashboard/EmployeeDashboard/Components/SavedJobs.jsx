@@ -8,7 +8,7 @@ const SavedJobs = () => {
   const { uid } = user;
   const [loading, setLoading] = useState(true);
   const [employeeData, setEmployeeData] = useState(null);
-  const [savedJobs, setSavedJobs] = useState()
+  const [savedJobs, setSavedJobs] = useState([])
   const navigate = useNavigate();
 
 

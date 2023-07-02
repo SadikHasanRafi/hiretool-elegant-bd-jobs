@@ -45,15 +45,15 @@ const ShowJob = ({ job }) => {
 
   return (
     <div>
-      <div className="card w-96 hover:shadow-md bg-blue-100 m-3 text-primary-content">
+      <div className="w-full card-style border-[1px] m-3 text-primary-content flex flex-col h-full">
         <div className="card-body">
           <h2 className="card-title font-bold text-black">{jobTitle}</h2>
           <p className="text-black">{jobDescription}</p>
-          <div className="card-actions justify-end">
-            <button onClick={handleOnclickSaveLater} className="btn">
+          <div className="card-actions justify-end mt-8">
+            <button onClick={handleOnclickSaveLater} className="btn-style">
               Save it
             </button>
-            <button onClick={handleOnclickShowDetails} className="btn">
+            <button onClick={handleOnclickShowDetails} className="btn-style">
               Show details
             </button>
           </div>

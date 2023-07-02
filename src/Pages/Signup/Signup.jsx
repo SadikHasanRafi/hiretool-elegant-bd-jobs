@@ -1,4 +1,4 @@
-import  { useContext, useRef } from 'react';
+import  { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../../Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ const Signup = () => {
   const passwordRef = useRef(null);
   const {createUser} = useContext(AuthContext)
   const navigate = useNavigate()
+  const [error, setError] = useState("");
     
 
 
@@ -30,27 +31,75 @@ const Signup = () => {
       } catch (error) {
         console.error('Login error:', error);
         // Handle login error
+        setError(error.message);
       }
   };
 
   return (
-    <div className="card">
-      <input
-        type="text"
-        placeholder="Email"
-        className="input m-1 input-bordered input-accent w-full max-w-xs"
-        ref={emailRef}
-      />
-      <input
-        type="text"
-        placeholder="Password"
-        className="input m-1 input-bordered input-accent w-full max-w-xs"
-        ref={passwordRef}
-      />
-      <button className="btn btn-outline btn-primary m-1" onClick={handleClick}>
-        Sign Up
-      </button>
+    // <div className="card">
+    //   <input
+    //     type="text"
+    //     placeholder="Email"
+    //     className="input m-1 input-bordered input-accent w-full max-w-xs"
+    //     ref={emailRef}
+    //   />
+    //   <input
+    //     type="text"
+    //     placeholder="Password"
+    //     className="input m-1 input-bordered input-accent w-full max-w-xs"
+    //     ref={passwordRef}
+    //   />
+    //   <button className="btn btn-outline btn-primary m-1" onClick={handleClick}>
+    //     Sign Up
+    //   </button>
+    // </div>
+
+
+<div className="flex justify-center items-center min-h-screen">
+<div className="card w-96 border-[#e9e9e9] border-[0.2px] bg-base-100">
+  <div className="card flex-shrink-0 w-full max-w-sm bg-base-100">
+    <div className="card-body">
+      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-5">Sign Up</p>
+
+      <div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            type="text"
+            placeholder="email"
+            name="email"
+            className="input input-bordered"
+            ref={emailRef}
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input
+            type="text"
+            placeholder="password"
+            name="password"
+            className="input input-bordered"
+            ref={passwordRef}
+          />
+          <label className="label">
+            <a href="#" className="label-text-alt link link-hover">
+              Forgot password?
+            </a>
+          </label>
+          <span className="text-xs text-red-600">{error}</span>
+        </div>
+        <div className="form-control mt-6">
+          <button className="btn-style" onClick={handleClick}>Sign Up</button>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+</div>
   );
 };
 

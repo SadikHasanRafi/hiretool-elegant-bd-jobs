@@ -39,28 +39,28 @@ import Review from '../Pages/Reviews/Review';
           children: [
             {
               path: "/",
-              element: <Home></Home>
+              element: <Home></Home>//////////////
             },{
               path:"/signup",
-              element:<Signup></Signup>
+              element:<Signup></Signup>///////////
             },{
               path: "/setrole",
-              element: <SetRole></SetRole>
+              element: <SetRole></SetRole>////////////
             },{
               path: "/login",
-              element: <Login></Login>
+              element: <Login></Login>//////////////////
             },{
               path: "/set-company-profile",
-              element: <SetComPanyProfile></SetComPanyProfile>
+              element: <SetComPanyProfile></SetComPanyProfile>/////////////////
             },{
               path: "/set-employee-profile",
-              element: <SetEmployeeProfile></SetEmployeeProfile>
+              element: <SetEmployeeProfile></SetEmployeeProfile>//////////////////
             },{
               path:"/approval",
-              element:<ApprovalPage></ApprovalPage>
+              element:<ApprovalPage></ApprovalPage>//////////////
             },{
               path:"/show-all-jobs",
-              element:<ShowAllJobs></ShowAllJobs>
+              element:<ShowAllJobs></ShowAllJobs>///////////
             },{
               path:"/contact-us",
               element:<p>Contact us page not builded</p>
@@ -72,17 +72,18 @@ import Review from '../Pages/Reviews/Review';
               path:"/:_id"
             },{
               path:"/dashboard",
-              element:<Dashboard></Dashboard>,
+              element:<Dashboard></Dashboard>, //
               children: [
                 {
+                  index: true,
                   path:"/dashboard/my-profile", //employee profile
                   element:<MyProfile></MyProfile>
                 },{
                   path:"/dashboard/update-employee-profile",
-                  element:<UpdateEmployeeProfile></UpdateEmployeeProfile>
+                  element:<UpdateEmployeeProfile></UpdateEmployeeProfile> /////
                 },{
                   path:"/dashboard/saved-jobs",
-                  element:<SavedJobs></SavedJobs>
+                  element:<SavedJobs></SavedJobs> 
                 },{
                   path:"/dashboard/applied-jobs",
                   element:<AppliedJobs></AppliedJobs>
@@ -91,25 +92,25 @@ import Review from '../Pages/Reviews/Review';
                   element:<EmployeeNotifications></EmployeeNotifications>
                 },{
                   path:"/dashboard/company-profile",
-                  element:<CompanyProfile></CompanyProfile>
+                  element:<CompanyProfile></CompanyProfile>//////
                 },{
                   path:"/dashboard/update-company-profile",
-                  element:<UpdateCompanyProfile></UpdateCompanyProfile>
+                  element:<UpdateCompanyProfile></UpdateCompanyProfile>/////////
                 },{
                   path:"/dashboard/show-applicants",
                   element:<Applicants></Applicants>
                 },{
                   path:"/dashboard/show-company-posted-jobs",
-                  element:<PostedJobs></PostedJobs>
+                  element:<PostedJobs></PostedJobs>///////
                 },{
                   path:"/dashboard/company-notifications",
                   element:<CompanyNotifications></CompanyNotifications>
                 },{
                   path:"/dashboard/add-jobs",
-                  element:<AddJobs></AddJobs>
+                  element:<AddJobs></AddJobs>///////////
                 },{
                   path:"/dashboard/show-who-applied",
-                  element:<EmployeesAppliedForJob></EmployeesAppliedForJob>
+                  element:<EmployeesAppliedForJob></EmployeesAppliedForJob>/////////
                 },{
                   path:"/dashboard/show-employee-details/:email",
                   element:<ShowEmployeeDetails></ShowEmployeeDetails>

@@ -15,7 +15,6 @@ const UpdateCompanyProfile = () => {
         const response = await axios.get(
           `http://localhost:5000/get-company-details/${uid}`
         );
-        const data = response.data;
         // Handle the response data
         console.log();
         setCompany(response.data)
@@ -62,50 +61,39 @@ const UpdateCompanyProfile = () => {
   };
 
   return (
-    <div>
-         <form onSubmit={handleSubmit}>
-        <div className="form-control w-full max-w-xs">
-            <label className="label">
-                <span className="label-text">Currently company name is {company?.companyName}</span>
-            </label>
-            <input name="companyName"  onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+    <div className="flex flex-col justify-center items-center">
+      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-5">Update your company profile</p>
+         <form onSubmit={handleSubmit} className="w-[65vw] border-[1px] p-10">
+        <div className="form-control w-full mb-5">
+            <label className="mr-3 font-bold mb-1">Company name:</label>
+            <input name="companyName"  onChange={handleInputChange} defaultValue={company?.companyName} type="text" placeholder="Type here" className="input input-bordered m-2 mb-5" />
         </div>
 
-        <div className="form-control w-full max-w-xs">
-            <label className="label">
-                <span className="label-text">Working Industry {company?.industry}</span>
-            </label>
-            <input  onChange={handleInputChange} name="industry" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+        <div className="form-control w-full mb-5">
+            <label className="mr-3 font-bold mb-1">Working Industry:</label>
+            <input  onChange={handleInputChange} name="industry" defaultValue={company?.industry} type="text" placeholder="Type here" className="input input-bordered m-2 mb-5" />
         </div>
 
-        <div className="form-control w-full max-w-xs">
-            <label className="label">
-                <span className="label-text">website {company?.website}</span>
-            </label>
-            <input name="website" onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+        <div className="form-control w-full mb-5">
+            <label className="mr-3 font-bold mb-1">Website:</label>
+            <input name="website" onChange={handleInputChange} defaultValue={company?.website} type="text" placeholder="Type here" className="input input-bordered m-2 mb-5" />
         </div>
 
 
-        <div className="form-control w-full max-w-xs">
-            <label className="label">
-                <span className="label-text">phone {company?.phone}</span>
-            </label>
-            <input name="phone" onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+        <div className="form-control w-full mb-5">
+            <label className="mr-3 font-bold mb-1">Phone:</label>
+            <input name="phone" onChange={handleInputChange} type="text" defaultValue={company?.phone} placeholder="Type here" className="input input-bordered m-2 mb-5" />
         </div>
-        <div className="form-control w-full max-w-xs">
-            <label className="label">
-                <span className="label-text">description {company?.description}</span>
-            </label>
-            <input name="description" onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+        <div className="form-control w-full mb-5">
+            <label className="mr-3 font-bold mb-1">Description:</label>
+            <input name="description" onChange={handleInputChange} defaultValue={company?.description} type="text" placeholder="Type here" className="input input-bordered m-2 mb-5" />
         </div>
-        <div className="form-control w-full max-w-xs">
-            <label className="label">
-                <span className="label-text">facebook {company?.facebook}</span>
-            </label>
-            <input name="facebook" onChange={handleInputChange} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+        <div className="form-control w-full mb-5">
+            <label className="mr-3 font-bold mb-1">Facebook: </label>
+            <input name="facebook" onChange={handleInputChange} defaultValue={company?.facebook} type="text" placeholder="Type here" className="input input-bordered m-2 mb-5" />
         </div>
 
-        <button className="btn btn-accent">Update</button>
+        <button className="float-right btn-style">Update</button>
         
         
         </form>

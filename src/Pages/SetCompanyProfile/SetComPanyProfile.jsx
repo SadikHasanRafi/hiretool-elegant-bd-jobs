@@ -3,27 +3,27 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-
+import companyLogo from "../../assets/undefinedImg.jpg"
 const SetComPanyProfile = () => {
     const {user} = useContext(AuthContext)
     // eslint-disable-next-line no-unused-vars
     const navigate = useNavigate()
   
     const [formData, setFormData] = useState({
-      companyName: "",
-      companyLogo: user?.photoURL || null,
-      industry: "",
+      companyName: "",///////////////
+      companyLogo: user?.photoURL || companyLogo,//////////////
+      industry: "",//////////////
       registerID:"",
-      locations: "",
-      website: "",
-      email: ""||user?.email,
-      phone: "",
-      description: "",
-      facebook: "",
-      twitter: "",
-      linkedin: "",
+      locations: "",//////////////
+      website: "",///////////////
+      email: ""||user?.email,//////////////
+      phone: "",/////////////
+      description: "",////////////////
+      facebook: "",///////////////
+      twitter: "",///////////////
+      linkedin: "",/////////////////
       uid: user?.uid,
-      technologies: [],
+      technologies: [],///////////////
       approval:false,
       jobs: [],
       appointmentDetails:[],
@@ -61,155 +61,155 @@ const SetComPanyProfile = () => {
     };
   
     return (
-      <div className="max-w-md mx-auto m-10 shadow-lg bg-white p-8 border border-gray-300 rounded">
-        <form onSubmit={handleSubmit}>
+      <div className="my-20 flex flex-col items-center justify-center">
+      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-8">Set Your Company profile</p>
+        <form onSubmit={handleSubmit} className="min-w-[50vw] border-[1px] p-10">
           <div className="mb-4">
-            <label className="block font-bold mb-1">Company Name</label>
+            <label className="mr-3 font-bold mb-1">Company Name</label>
             <input
               type="text"
               name="companyName"
               value={formData.companyName}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="Company Name"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Company Logo</label>
-            <input
-              type="text"
-              name="companyLogo"
-              disabled
-              value={formData.companyLogo}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block font-bold mb-1">Registered ID:</label>
+            <label className="mr-3 font-bold mb-1">Registered ID:</label>
             <input
               type="text"
               name="registerID"
               value={formData.registerID}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="register ID"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Industry</label>
+            <label className="mr-3 font-bold mb-1">Industry</label>
             <input
               type="text"
               name="industry"
               value={formData.industry}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="Industry"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Locations</label>
+            <label className="mr-3 font-bold mb-1">Locations</label>
             <input
               type="text"
               name="locations"
               value={formData.locations}
               // value={formData.locations.join(', ')}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="Locations"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Website</label>
+            <label className="mr-3 font-bold mb-1">Website</label>
             <input
               type="text"
               name="website"
               value={formData.website}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="Website"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Email</label>
+            <label className="mr-3 font-bold mb-1">Email</label>
             {user && <input
               disabled
               type="email"
               name="email"
               value={formData.email || user?.email}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
             />}
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Phone</label>
+            <label className="mr-3 font-bold mb-1">Phone</label>
             <input
               type="tel"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="Phone"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Description</label>
+            <label className="mr-3 font-bold mb-1">Description</label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="Description"
             ></textarea>
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Technologies</label>
+            <label className="mr-3 font-bold mb-1">Technologies</label>
             <input
               type="text"
               name="technologies"
               placeholder='separate by comma (,) '
               value={formData.technologies.join(", ")}
               onChange={handleKeyTechnologiesChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Facebook</label>
+            <label className="mr-3 font-bold mb-1">Facebook</label>
             <input
               type="text"
               name="facebook"
               value={formData.facebook}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="Facebook"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">Twitter</label>
+            <label className="mr-3 font-bold mb-1">Twitter</label>
             <input
               type="text"
               name="twitter"
               value={formData.twitter}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="border-[1px] input-bordered input m-2 w-full"
+              placeholder="Twitter"
             />
           </div>
     
           <div className="mb-4">
-            <label className="block font-bold mb-1">LinkedIn</label>
+            <label className="mr-3 font-bold mb-1">Linkedin</label>
             <input
               type="text"
               name="linkedin"
               value={formData.linkedin}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              placeholder="Linkedin"
+              className="border-[1px] input-bordered input m-2 w-full"
             />
           </div>
     
           <div className="mb-4">
-            <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded">
+            <button type="submit" className="btn bg-primary text-base-100 px-5 normal-case text-[16px] font-medium border-none hover:bg-neutral transition-all float-right">
               Submit
             </button>
           </div>

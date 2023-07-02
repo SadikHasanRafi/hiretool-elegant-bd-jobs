@@ -1,10 +1,10 @@
-import  { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../Context/AuthProvider";
 
 const AddJobs = () => {
-    const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     jobTitle: "",
     jobDescription: "",
@@ -19,27 +19,50 @@ const AddJobs = () => {
     applicationLink: "",
     postedDate: "",
     categories: "",
-    uid:user?.uid,
-    whoApplied : [],
-    whoSaved : []
+    uid: user?.uid,
+    whoApplied: [],
+    whoSaved: [],
   });
+  const { uid } = user;
+  const [company, setCompany] = useState({});
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/get-company-details/${uid}`
+        );
+        // Handle the response data
+        console.log();
+        setCompany(response.data)
+      } catch (error) {
+        console.error("Error fetching company details:", error);
+      }
+    };
+
+    fetchData(); // Call the API when the component mounts
+    console.log(company)
+    return () => {
+      // Perform clean-up tasks if needed
+    };
+  }, []);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'requirements') {
-        const data = value.split(',').map((item) => item.trim());
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: data
-        }));
-      } else {
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: value
-        }));
-      }
+    if (name === "requirements") {
+      const data = value.split(",").map((item) => item.trim());
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: data,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleRequirementsChange = (e, index) => {
@@ -80,178 +103,199 @@ const AddJobs = () => {
     }));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/add-job",formData);
+      const response = await axios.post(
+        "http://localhost:5000/add-job",
+        formData
+      );
       console.log(response.data); // Response from the server
-      navigate("/dashboard/show-company-posted-jobs")
+      navigate("/dashboard/show-company-posted-jobs");
     } catch (error) {
       console.error("Error posting data:", error);
-    } 
+    }
 
     // console.log(formData); // Logged form data
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Job Title:
-        <input
-          type="text"
-          name="jobTitle"
-          value={formData.jobTitle}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Job Description:
-        <textarea
-          name="jobDescription"
-          value={formData.jobDescription}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Company Name:
-        <input
-          type="text"
-          name="companyName"
-          value={formData.companyName}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Company Logo:
-        <input
-          type="text"
-          name="companyLogo"
-          value={formData.companyLogo}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Industry:
-        <input
-          type="text"
-          name="industry"
-          value={formData.industry}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Location:
-        <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Requirements (separated by commas):
-        {formData.requirements.map((requirement, index) => (
+    <div className="flex flex-col justify-center items-center">
+      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-5">
+        Add a new job
+      </p>
+      <form onSubmit={handleSubmit} className="w-[65vw] border-[1px] p-10">
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Job Title:</label>
           <input
-            key={index}
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
             type="text"
-            value={requirement}
-            onChange={(e) => handleRequirementsChange(e, index)}
+            name="jobTitle"
+            value={formData.jobTitle}
+            onChange={handleChange}
           />
-        ))}
-        <button type="button" onClick={addRequirement}>
-          Add Requirement
-        </button>
-      </label>
-      <br />
+        </div>
 
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Job Description:</label>
+          <textarea
+            className="input input-bordered m-2 mb-5"
+            name="jobDescription"
+            value={formData.jobDescription}
+            onChange={handleChange}
+            placeholder="Type here"
+          />
+        </div>
 
-      <label>
-        Responsibilities:
-        {formData.responsibilities.map((responsibility, index) => (
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Company Name:</label>
           <input
-            key={index}
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
             type="text"
-            value={responsibility}
-            onChange={(e) => handleResponsibilitiesChange(e, index)}
+            name="companyName"
+            defaultValue={company.companyName}
+            onChange={handleChange}
+            disabled
           />
-        ))}
-        <button type="button" onClick={addResponsibility}>
-          Add Responsibility
+        </div>
+
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Company Logo:</label>
+          <input
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
+            type="text"
+            name="companyLogo"
+            value={company.companyLogo || company.photoURL}
+            onChange={handleChange}
+            disabled
+          />
+        </div>
+
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Industry:</label>
+          <input
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
+            type="text"
+            name="industry"
+            value={company.industry}
+            onChange={handleChange}
+            disabled
+          />
+        </div>
+        <br />
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Location: </label>
+          <input
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Requirements:</label>
+          {formData.requirements.map((requirement, index) => (
+            <input
+            placeholder="Type here"
+              className="input input-bordered m-2 mb-5"
+              key={index}
+              type="text"
+              value={requirement}
+              onChange={(e) => handleRequirementsChange(e, index)}
+            />
+          ))}
+          <button
+            type="button"
+            className="btnOnlyText w-fit hover:underline"
+            onClick={addRequirement}>
+            + Add Requirement
+          </button>
+        </div>
+
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Responsibilities:</label>
+          {formData.responsibilities.map((responsibility, index) => (
+            <input
+            placeholder="Type here"
+              className="input input-bordered m-2 mb-5"
+              key={index}
+              type="text"
+              value={responsibility}
+              onChange={(e) => handleResponsibilitiesChange(e, index)}
+            />
+          ))}
+          <button
+            type="button"
+            className="btnOnlyText w-fit hover:underline"
+            onClick={addResponsibility}>
+            + Add Responsibility
+          </button>
+        </div>
+
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Experience Level: </label>
+          <input
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
+            type="text"
+            name="experienceLevel"
+            value={formData?.experienceLevel}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Salary Range: </label>
+          <input
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
+            type="text"
+            name="salaryRange"
+            value={formData?.salaryRange}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Last date to apply: </label>
+          <input
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
+            type="date"
+            name="postedDate"
+            value={formData?.postedDate}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-control w-full mb-5">
+          <label className="mr-3 font-bold mb-1">Categories:</label>
+          <input
+          placeholder="Type here"
+            className="input input-bordered m-2 mb-5"
+            type="text"
+            name="categories"
+            value={formData?.categories}
+            onChange={handleChange}
+          />
+        </div>
+
+        <br />
+
+        <button
+          type="submit"
+          className="float-right btn bg-primary text-base-100 px-5 normal-case text-[16px] font-medium border-none hover:bg-neutral transition-all">
+          Submit
         </button>
-      </label>
-      <br />
-
-      <label>
-        Experience Level:
-        <input
-          type="text"
-          name="experienceLevel"
-          value={formData.experienceLevel}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Salary Range:
-        <input
-          type="text"
-          name="salaryRange"
-          value={formData.salaryRange}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Application Link:
-        <input
-          type="text"
-          name="applicationLink"
-          value={formData.applicationLink}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Posted Date:
-        <input
-          type="text"
-          name="postedDate"
-          value={formData.postedDate}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <label>
-        Categories:
-        <input
-          type="text"
-          name="categories"
-          value={formData.categories}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-
-      <button type="submit">Submit</button>
-    </form>
+      </form>
+    </div>
   );
 };
 

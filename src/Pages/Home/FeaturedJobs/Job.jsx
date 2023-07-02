@@ -19,7 +19,7 @@ const Job = (props) => {
             {props.requirements.map((requirement) => {
               if(requirement.length > 0){
                   <span className="badge-ghost badge">{requirement}</span>
-                  console.log(requirement);
+                  // console.log(requirement);
                 }
               })}
               </p>

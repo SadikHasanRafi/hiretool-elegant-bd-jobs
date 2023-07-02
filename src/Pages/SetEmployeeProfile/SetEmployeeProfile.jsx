@@ -184,11 +184,17 @@ const SetEmployeeProfile = () => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-          <h3>Work Experience</h3>
+
+    <div className="my-20 flex flex-col items-center justify-center">
+      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-8">
+        Set Your CV profile
+      </p>
+    <form onSubmit={handleSubmit} className="max-w-[65vw] border-[1px] p-10">
+          <h3 className="mb-2 text-xl font-medium text-primary">Work Experience</h3>
       {employeeData.workExperience.jobHistory.map((job, index) => (
         <div key={index}>
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             name="company"
             value={job.company}
@@ -196,6 +202,7 @@ const SetEmployeeProfile = () => {
             placeholder="Company"
           />
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             name="jobTitle"
             value={job.jobTitle}
@@ -203,6 +210,7 @@ const SetEmployeeProfile = () => {
             placeholder="Job Title"
           />
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             name="employmentStartDate"
             value={job.employmentStartDate}
@@ -210,6 +218,7 @@ const SetEmployeeProfile = () => {
             placeholder="Employment Start Date"
           />
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             name="employmentEndDate"
             value={job.employmentEndDate}
@@ -218,14 +227,31 @@ const SetEmployeeProfile = () => {
           />
         </div>
       ))}
-      <button type="button" onClick={handleAddWorkExperience}>
-        Add Work Experience
-      </button>
+      <button type="button" className="hover:underline btnOnlyText p-0" onClick={handleAddWorkExperience}>+ Add Work Experience</button>
 
-      <h3>Education</h3>
+
+
+
+
+
+
+
+
+        <div className="my-5"/>
+
+
+
+
+
+
+
+
+
+      <h3 className="mb-2 text-xl font-medium text-primary">Education</h3>
       {employeeData.workExperience.education.map((edu, index) => (
         <div key={index}>
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             name="degree"
             value={edu.degree}
@@ -233,6 +259,7 @@ const SetEmployeeProfile = () => {
             placeholder="Degree"
           />
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             name="institution"
             value={edu.institution}
@@ -240,6 +267,7 @@ const SetEmployeeProfile = () => {
             placeholder="Institution"
           />
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             name="major"
             value={edu.major}
@@ -247,6 +275,7 @@ const SetEmployeeProfile = () => {
             placeholder="Major"
           />
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             name="graduationDate"
             value={edu.graduationDate}
@@ -255,74 +284,99 @@ const SetEmployeeProfile = () => {
           />
         </div>
       ))}
-      <button type="button" onClick={handleAddEducation}>
-        Add Education
-      </button>
+      <button className="hover:underline btnOnlyText p-0" type="button" onClick={handleAddEducation}>
+        + Add Education
+      </button> 
 
-      <h3>Skills and Qualifications</h3>
+
+
+
+
+
+
+
+
+
+      <div className="my-5"/>
+
+
+
+
+
+
+
+
+
+
+       <h3 className="mb-2 text-xl font-medium text-primary">Skills and Qualifications</h3>
+       <div className="flex flex-wrap">
       {employeeData.keySkills.map((skill, index) => (
-        <div key={index}>
+                  <div key={index}>
           <input
+          className="border-[1px] input-bordered input m-2"
             type="text"
             value={skill}
             onChange={(e) => handleKeySkillChange(e, index)}
-            placeholder="Skill"
+            placeholder={`Skill  ${index + 1}`}
           />
         </div>
       ))}
-      <button type="button" onClick={handleAddKeySkill}>
-        Add Skill
+      </div>
+      <button className="hover:underline btnOnlyText p-0" type="button" onClick={handleAddKeySkill}>
+        + Add Skill
       </button>
 
-        <br />
-      {employeeData.certifications.map(
+
+
+
+
+
+
+
+        <div  className="my-8"/>
+
+
+
+
+        <h3 className="mb-2 text-xl font-medium text-primary">Certificate</h3>
+        {employeeData.certifications.map(
         (cert, index) => (
           <div key={index}>
             <input
+            className="border-[1px] input-bordered input m-2 w-[65vw]"
               type="text"
               value={cert}
               onChange={(e) => handleCertificationChange(e, index)}
               placeholder="Certification"
-              className="input input-bordered input-accent w-full max-w-xs" 
             />
           </div>
         )
       )}
-      <button type="button" onClick={handleAddCertification} className="btn btn-outline btn-accent" >
-        Add Certification
-      </button>
-      <h3>Job Preferences</h3>
-      <input
-        type="text"
-        name="desiredJobTitle"
-        value={employeeData.desiredJobTitle}
-        onChange={handleInputChange}
-        placeholder="Desired Job Title"
-      />
-      <input
-        type="text"
-        name="preferredLocation"
-        value={employeeData.preferredLocation}
-        onChange={handleInputChange}
-        placeholder="Preferred Location"
-      />
+        <button type="button" onClick={handleAddCertification} className="hover:underline btnOnlyText p-0" >+ Add Certification</button>
 
-      <h3>Contact Information</h3>
+
+
+
+
+
+
+
+
+
+        <div  className="my-8"/>
+
+
+
+
+
+
+
+
+        
+
+      <h3 className="mb-2 text-xl font-medium text-primary">Job Preferences & Contact Information</h3>      
       <input
-        type="text"
-        name="phone"
-        value={employeeData.phone}
-        onChange={handleInputChange}
-        placeholder="Phone"
-      />
-      <input
-        type="text"
-        name="address"
-        value={employeeData.address}
-        onChange={handleInputChange}
-        placeholder="Address"
-      />
-      <input
+      className="border-[1px] input-bordered input m-2"
         type="text"
         name="displayName"
         value={employeeData?.displayName || ""}
@@ -331,6 +385,7 @@ const SetEmployeeProfile = () => {
         // defaultValue={user?.displayName}
       />
       <input
+      className="border-[1px] input-bordered input m-2"
         type="text"
         name="email"
         value={employeeData.email}
@@ -339,10 +394,58 @@ const SetEmployeeProfile = () => {
         // defaultValue={user?.email}
         disabled
       />
+      <input
+      className="border-[1px] input-bordered input m-2"
+        type="text"
+        name="desiredJobTitle"
+        value={employeeData.desiredJobTitle}
+        onChange={handleInputChange}
+        placeholder="Desired Job Title"
+      />
+      <input
+      className="border-[1px] input-bordered input m-2"
+        type="text"
+        name="preferredLocation"
+        value={employeeData.preferredLocation}
+        onChange={handleInputChange}
+        placeholder="Preferred Location"
+      />
+      <input
+      className="border-[1px] input-bordered input m-2"
+        type="text"
+        name="phone"
+        value={employeeData.phone}
+        onChange={handleInputChange}
+        placeholder="Phone"
+      />
+      <input
+      className="border-[1px] input-bordered input m-2"
+        type="text"
+        name="address"
+        value={employeeData.address}
+        onChange={handleInputChange}
+        placeholder="Address"
+      />
 
-      <button type="submit">Submit</button>
-      <Toaster/>
+
+
+
+
+
+
+
+
+<div  className="my-8"/>
+
+
+
+
+      <button type="submit" className="btn bg-primary text-base-100 px-5 normal-case text-[16px] font-medium border-none hover:bg-neutral float-right">Submit</button>
+      <Toaster/> 
     </form>
+
+
+    </div>
   );
 };
 

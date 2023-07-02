@@ -4,6 +4,7 @@ import FeaturedJobs from "./FeaturedJobs/FeaturedJobs";
 import Header from "./Header/Header";
 import Industries from "./Industries/Industries";
 import AboutUs from "../AboutUs/AboutUs"
+import ShowAllReviews from "../ShowAllReviews/ShowAllReviews";
 const Home = () => {
 
   const [totalJobs, setTotalJobs] = useState(0)
@@ -31,26 +32,11 @@ const Home = () => {
 
   return (
     <div>
-      {/* <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Hello there</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <p>number of company {totalCompany}</p>
-            <p>number of employee {totalEmployee}</p>
-            <p>number of jobs {totalJobs}</p>
-            <button className="btn btn-primary">Get Started</button>
-          </div>
-        </div>
-      </div> */}
         <Header></Header>
         <Industries></Industries>
         <FeaturedJobs></FeaturedJobs>
         <AboutUs totalCompany={totalCompany} totalEmployee={totalEmployee} totalJobs={totalJobs}></AboutUs>
+        <ShowAllReviews></ShowAllReviews>
     </div>
   );
 };

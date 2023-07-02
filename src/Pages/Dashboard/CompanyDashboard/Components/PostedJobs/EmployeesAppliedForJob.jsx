@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { JobContext } from "../../../../../Context/JobsProvider";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EmployeesAppliedForJob = () => {
   // eslint-disable-next-line no-unused-vars
   const { getEmployeesWhoAppliedForThisJob } = useContext(JobContext);
   const [employeeData, setEmployeeData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
@@ -27,22 +27,29 @@ const EmployeesAppliedForJob = () => {
     return <p>Loading...</p>;
   }
 
-  const handleButtonOnlick = (email) =>{
+  const handleButtonOnlick = (email) => {
     localStorage.setItem("selectedEmployeeEmail", email);
-    navigate(`/dashboard/show-employee-details/${email}`)
-    
-}
+    navigate(`/dashboard/show-employee-details/${email}`);
+  };
 
   return (
     <div>
-      <p>Number of people applied for this jobs is {employeeData.length}</p>
+      <p className="text-xl mb-8">
+      {employeeData.length} person applied for this jobs
+      </p>
 
-      {employeeData.map((employee) => (
-        <div key={employee.uid}>
-            <button onClick={()=>handleButtonOnlick(employee.email)} className="btn bg-green-300 btn-outline rounded-none">{employee.email}</button>
-        </div>
-      ))
-      }
+      <div className="flex">
+        {" "}
+        {employeeData.map((employee) => (
+          <div key={employee.uid}>
+            <button
+              onClick={() => handleButtonOnlick(employee.email)}
+              className="btn-style m-1">
+              {employee.email}
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
