@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Loading from '../../../../Shared/Loading';
 
 const CompanyNotification = (props) => {
   const { appointmentEmployeeUID, interviewTime, job_id } = props.notification;
@@ -44,7 +45,7 @@ const CompanyNotification = (props) => {
   return (
     <div>
       {isLoading ? (
-        <span className="loading loading-dots loading-md"></span>
+        <Loading></Loading>
       ) : (
         <div className={interviewDate > currentDate+1 ? 'bg-red-500' : ''}>
           <p>{props.index + 1}</p>

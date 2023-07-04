@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import "react";
+import { Link } from "react-router-dom";
 
 const Industry = (props) => {
   return (
     <div>
-      <div>
+      <Link className="cursor-pointer" to="/show-all-jobs">
         <div className="card card-style">
           <figure>
             <img
@@ -19,7 +20,7 @@ const Industry = (props) => {
             <h2 className="card-title  justify-center">{props.title}</h2>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

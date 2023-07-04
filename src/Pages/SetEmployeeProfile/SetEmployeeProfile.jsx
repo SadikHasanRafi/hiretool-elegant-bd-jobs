@@ -343,7 +343,7 @@ const SetEmployeeProfile = () => {
         (cert, index) => (
           <div key={index}>
             <input
-            className="border-[1px] input-bordered input m-2 w-[65vw]"
+            className="border-[1px] input-bordered input m-2 w-full"
               type="text"
               value={cert}
               onChange={(e) => handleCertificationChange(e, index)}
@@ -382,7 +382,7 @@ const SetEmployeeProfile = () => {
         value={employeeData?.displayName || ""}
         onChange={handleInputChange}
         placeholder="Display Name"
-        // defaultValue={user?.displayName}
+        required
       />
       <input
       className="border-[1px] input-bordered input m-2"
@@ -401,6 +401,7 @@ const SetEmployeeProfile = () => {
         value={employeeData.desiredJobTitle}
         onChange={handleInputChange}
         placeholder="Desired Job Title"
+        required
       />
       <input
       className="border-[1px] input-bordered input m-2"
@@ -409,6 +410,7 @@ const SetEmployeeProfile = () => {
         value={employeeData.preferredLocation}
         onChange={handleInputChange}
         placeholder="Preferred Location"
+        required
       />
       <input
       className="border-[1px] input-bordered input m-2"
@@ -417,6 +419,7 @@ const SetEmployeeProfile = () => {
         value={employeeData.phone}
         onChange={handleInputChange}
         placeholder="Phone"
+        required
       />
       <input
       className="border-[1px] input-bordered input m-2"
@@ -425,6 +428,7 @@ const SetEmployeeProfile = () => {
         value={employeeData.address}
         onChange={handleInputChange}
         placeholder="Address"
+        required
       />
 
 

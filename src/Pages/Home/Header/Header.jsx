@@ -1,5 +1,6 @@
 import "react";
 import handshake from "../../../assets/handshake.jpg";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -14,9 +15,9 @@ const Header = () => {
           excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
           id nisi.
         </p>
-        <button className="btn-style">
+        <Link to="/signup" className="btn-style">
           Get started
-        </button>
+        </Link>
         </div>
       </div>
       <figure className="lg:w-6/12">

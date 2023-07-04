@@ -33,12 +33,14 @@ const ShowAllReviews = () => {
   return (
     <div className="items-center h-screen justify-center flex flex-col">
         <p className="text-3xl font-extrabold text-primary mb-8">Top Reviews</p>
-      <div className="grid grid-cols-4 w-[70vw] gap-4">
+      <div className="grid grid-cols-3 w-[70vw] gap-4">
         {
             reviews.map((review,index)=>{
                 if (review.review) {
+                  if(index < 5){
                     return (<Review key={index} review={review}></Review>)
                     // console.log(index)
+                  }
                 }
             })
         }

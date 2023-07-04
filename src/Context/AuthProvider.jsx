@@ -4,6 +4,7 @@ import {createUserWithEmailAndPassword,  onAuthStateChanged, signInWithEmailAndP
 import { useState } from 'react';
 import { useEffect } from 'react';
 import auth from '../firebase/firebase.config';
+import Loading from '../Pages/Shared/Loading';
 
 export const AuthContext = createContext();
 
@@ -46,7 +47,7 @@ const AuthProvider = ({children}) => {
     }, [])
 
     if (loading==true) {
-        return <p>Loading...</p> 
+        return <Loading></Loading>
     }
 
 

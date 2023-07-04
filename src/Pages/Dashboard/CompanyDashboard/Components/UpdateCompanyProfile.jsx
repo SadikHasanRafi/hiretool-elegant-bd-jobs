@@ -86,7 +86,7 @@ const UpdateCompanyProfile = () => {
         </div>
         <div className="form-control w-full mb-5">
             <label className="mr-3 font-bold mb-1">Description:</label>
-            <input name="description" onChange={handleInputChange} defaultValue={company?.description} type="text" placeholder="Type here" className="input input-bordered m-2 mb-5" />
+            <textarea name="description" onChange={handleInputChange} defaultValue={company?.description} type="text" placeholder="Type here" className="input input-bordered m-2 mb-5" />
         </div>
         <div className="form-control w-full mb-5">
             <label className="mr-3 font-bold mb-1">Facebook: </label>

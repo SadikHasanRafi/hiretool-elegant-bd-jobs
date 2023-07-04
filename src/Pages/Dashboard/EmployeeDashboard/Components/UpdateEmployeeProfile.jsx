@@ -3,71 +3,74 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-
+import Loading from "../../../Shared/Loading";
 
 const UpdateEmployeeProfile = () => {
   const { user } = useContext(AuthContext);
   const { uid } = user;
   const [loading, setLoading] = useState(false);
   const [employeeData, setEmployeeData] = useState(null);
-  const [company, setCompany] = useState('');
-  const [jobTitle, setJobTitle] = useState('');
-  const [employmentStartDate, setEmploymentStartDate] = useState('');
-  const [employmentEndDate, setEmploymentEndDate] = useState('');
+  const [company, setCompany] = useState("");
+  const [companyJobTitle, setCompanyJobTitle] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [employmentStartDate, setEmploymentStartDate] = useState("");
+  const [employmentEndDate, setEmploymentEndDate] = useState("");
   const formRef = useRef(null);
   const [formData, setFormData] = useState({});
-  const [institution, setInstitution] = useState("")
-  const [degree, setDegree] = useState("")
-  const [major, setMajor] = useState("")
-  const [graduationDate, setGraduationDate] = useState("")
-
+  const [institution, setInstitution] = useState("");
+  const [degree, setDegree] = useState("");
+  const [major, setMajor] = useState("");
+  const [graduationDate, setGraduationDate] = useState("");
 
   const [preferredJobLocation, setPreferredJobLocation] = useState("");
   const [desiredJobTitle, setDesiredJobTitle] = useState("");
 
-  
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
         const response = await axios.get(
           `http://localhost:5000/get-single-employee/${uid}`
         );
-        setPreferredJobLocation(response.data.payload.employee?.preferredLocation)
-        setJobTitle(response.data.payload.employee?.desiredJobTitle)
+        setPreferredJobLocation(
+          response.data.payload.employee?.preferredLocation
+        );
+        setJobTitle(response.data.payload.employee?.desiredJobTitle);
         setEmployeeData(response.data.payload.employee);
         setLoading(false);
         // console.log( employeeData.preferredLocation);
       } catch (error) {
         console.error(error);
         setLoading(false);
-      }finally{
+      } finally {
         // console.log(employeeData?.workExperience?.education)
       }
     };
 
     fetchEmployeeData();
-  }, [employeeData,formData]);
-
+  }, [employeeData, formData]);
 
   const handleRemoveJobExperience = async (index) => {
     try {
       setLoading(true);
-  
+
       const jobHistoryArray = employeeData.workExperience.jobHistory;
       let newArray = [];
-  
+
       for (let i = 0; i < jobHistoryArray.length; i++) {
         if (i !== index) {
           newArray.push(jobHistoryArray[i]);
         }
       }
-  
+
       employeeData.workExperience.jobHistory = newArray;
       setEmployeeData(employeeData);
-  
-      const response = await axios.patch(`http://localhost:5000/update-employee-profile-jobHistory-section/${uid}`, employeeData);
+
+      const response = await axios.patch(
+        `http://localhost:5000/update-employee-profile-jobHistory-section/${uid}`,
+        employeeData
+      );
       if (response.data.acknowledged) {
-        toast.success('Successfully removed!')
+        toast.success("Successfully removed!");
       }
     } catch (error) {
       console.error(error);
@@ -75,58 +78,62 @@ const UpdateEmployeeProfile = () => {
       setLoading(false);
     }
   };
-  
-  const handleRemoveEducation = async (index) =>{
 
+  const handleRemoveEducation = async (index) => {
     try {
       setLoading(true);
-  
+
       const educationArray = employeeData.workExperience.education;
       let newArray = [];
-  
+
       for (let i = 0; i < educationArray.length; i++) {
         if (i !== index) {
           newArray.push(educationArray[i]);
         }
       }
-  
+
       employeeData.workExperience.education = newArray;
       setEmployeeData(employeeData);
-  
-      const response = await axios.patch(`http://localhost:5000/update-employee-profile-education/${uid}`, employeeData);
+
+      const response = await axios.patch(
+        `http://localhost:5000/update-employee-profile-education/${uid}`,
+        employeeData
+      );
       if (response.data.acknowledged) {
-        toast.success('Successfully removed!')
+        toast.success("Successfully removed!");
       }
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const handleAddJob = async (e) => {
     e.preventDefault();
-
     setLoading(true);
 
     // Create an object with the input field values
     const formData = {
       company,
-      jobTitle,
+      companyJobTitle,
       employmentStartDate,
       employmentEndDate,
     };
 
     // Log the object
     console.log(formData);
-    employeeData.workExperience.jobHistory.push(formData)
+    employeeData.workExperience.jobHistory.push(formData);
 
     try {
       // Make the API call
-      const response = await axios.patch(`http://localhost:5000/update-employee-profile-jobHistory-section/${uid}`,employeeData);
+      const response = await axios.patch(
+        `http://localhost:5000/update-employee-profile-jobHistory-section/${uid}`,
+        employeeData
+      );
 
       if (response.data.acknowledged) {
-        toast.success('Job added successfully!');
+        toast.success("Job added successfully!");
       }
     } catch (error) {
       console.error(error);
@@ -135,12 +142,11 @@ const UpdateEmployeeProfile = () => {
     }
 
     // Clear the input fields
-    setCompany('');
-    setJobTitle('');
-    setEmploymentStartDate('');
-    setEmploymentEndDate('');
+    setCompany("");
+    setCompanyJobTitle("");
+    setEmploymentStartDate("");
+    setEmploymentEndDate("");
   };
-
 
   // const handleSubmit = async (event) => {
   //   event.preventDefault();
@@ -171,25 +177,28 @@ const UpdateEmployeeProfile = () => {
   // };
 
   const handleAddEducation = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     const formData = {
       institution,
       degree,
       major,
-      graduationDate
-    }
+      graduationDate,
+    };
 
-    console.log(formData)
+    console.log(formData);
 
-    employeeData.workExperience.education.push(formData)
-    console.log(employeeData.workExperience.education)
+    employeeData.workExperience.education.push(formData);
+    console.log(employeeData.workExperience.education);
     try {
       // Make the API call
-      const response = await axios.patch(`http://localhost:5000/update-employee-profile-education/${uid}`,employeeData);
+      const response = await axios.patch(
+        `http://localhost:5000/update-employee-profile-education/${uid}`,
+        employeeData
+      );
 
       if (response.data.acknowledged) {
-        toast.success('Job added successfully!');
+        toast.success("Job added successfully!");
       }
     } catch (error) {
       console.error(error);
@@ -198,16 +207,11 @@ const UpdateEmployeeProfile = () => {
     }
 
     // Clear the input fields
-    setInstitution('');
-    setDegree('');
-    setMajor('');
-    setGraduationDate('');
-
-
-
-
-  }
-
+    setInstitution("");
+    setDegree("");
+    setMajor("");
+    setGraduationDate("");
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -226,169 +230,226 @@ const UpdateEmployeeProfile = () => {
     setLoading(true);
     try {
       // Make the API call here using Axios
-       const response = await axios.patch(`http://localhost:5000/update-employee-other-infos/${user.uid}`, submittedData);
+      const response = await axios.patch(
+        `http://localhost:5000/update-employee-other-infos/${user.uid}`,
+        submittedData
+      );
       setFormData(submittedData);
-      console.log(response)
+      console.log(response);
     } catch (error) {
-      console.error('Error occurred while calling the API:', error);
-    }finally{
+      console.error("Error occurred while calling the API:", error);
+    } finally {
       setLoading(false);
       formRef.current.reset(); // Reset the form values
     }
   };
 
-
-
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading></Loading>;
   }
 
 
 
   return (
-    <div>
-     
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-     <div>
-      <p>work experience section</p>
-     {
-        employeeData?.workExperience?.jobHistory?.map((job,index)=>
-      
-            <div key={index || -1} className="flex gap-6 my-5">
-              <p><strong className="text-red-500">{index}</strong>. <strong>{job.company}</strong> as <strong>{job.jobTitle}</strong>......from <strong>{job.employmentEndDate}</strong> to <strong>{job.employmentStartDate}</strong></p>
-              <button onClick={() => handleRemoveJobExperience(index)} className="btn btn-outline btn-error">Remove</button>
+    <div className="flex flex-col items-center">
+      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-8">
+        Update Profile
+      </p>
+      <div className="max-w-[65vw] border-[1px] p-10 max-w-[58vw]">
+        <div>
+          <h3 className="mb-2 text-xl font-medium text-primary">
+            Work Experience
+          </h3>
+          <div className="mb-3">
+                      {employeeData?.workExperience?.jobHistory?.map((job, index) => (
+            <div key={index || -1} className="flex gap-6">
+              <li>
+                Joined <strong>{job.company}</strong> as <strong>{job.companyJobTitle}</strong>
+                ......from <strong>{job.employmentEndDate}</strong> to{" "}
+                <strong>{job.employmentStartDate}</strong>
+              </li>
+              <button
+                onClick={() => handleRemoveJobExperience(index)}
+                className="text-error">
+                X
+              </button>
             </div>
+          ))}
+          </div>
 
-        )
-      }
-
-      <form className="flex">
-        <input            onChange={(e) => setCompany(e.target.value)}  type="text" placeholder="Enter company name" className="input input-bordered input-primary w-full max-w-xs" />
-        <input            onChange={(e) => setJobTitle(e.target.value)} type="text" placeholder="Enter you job title" className="input input-bordered input-primary w-full max-w-xs" />
-        <input   onChange={(e) => setEmploymentStartDate(e.target.value)}  type="text" placeholder="Enter joining date" className="input input-bordered input-primary w-full max-w-xs" />
-        <input     onChange={(e) => setEmploymentEndDate(e.target.value)} type="text" placeholder="Enter leaving date" className="input input-bordered input-primary w-full max-w-xs" />
-
-        <button type="submit" onClick={handleAddJob} className="btn btn-outline btn-primary">Add New Experience</button>
-      </form>
-     </div>
-
-
-     <div>
-      <p>Educational qualification section</p>
-     {
-        employeeData?.workExperience?.education?.map((edu,index)=>
           
-            <div key={index || -1} className="flex gap-6 my-5">
-              <p><strong className="text-red-500">{index}</strong>. From <strong>{edu.institution}</strong>  in  <strong>{edu.graduationDate}</strong> I did <strong>{edu.degree}</strong> in <strong>{edu.major}</strong></p>
-              <button onClick={() => handleRemoveEducation(index)} className="btn btn-outline btn-error">Remove</button>
+
+          <form>
+            <input
+              onChange={(e) => setCompany(e.target.value)}
+              type="text"
+              placeholder="Enter company name"
+              className="border-[1px] input-bordered input m-2"
+            />
+            <input
+              onChange={(e) => setCompanyJobTitle(e.target.value)}
+              type="text"
+              placeholder="Enter you job title"
+              className="border-[1px] input-bordered input m-2"
+            />
+            <input
+              onChange={(e) => setEmploymentStartDate(e.target.value)}
+              type="text"
+              placeholder="Enter joining date"
+              className="border-[1px] input-bordered input m-2"
+            />
+            <input
+              onChange={(e) => setEmploymentEndDate(e.target.value)}
+              type="text"
+              placeholder="Enter leaving date"
+              className="border-[1px] input-bordered input m-2"
+            />
+
+            <button
+              type="submit"
+              onClick={handleAddJob}
+              className="hover:underline btn bg-transparent hover:text-primary px-5 normal-case text-[16px] font-medium border-none hover:bg-transparent transition-all">
+              ↻ Update with New Experience
+            </button>
+          </form>
+        </div>
+
+        <div>
+        <h3 className="mb-2 text-xl font-medium text-primary mt-5">
+        Educational qualification
+          </h3>
+          <p></p>
+          <div className="mb-3">
+                      {employeeData?.workExperience?.education?.map((edu, index) => (
+            <div key={index || -1} className="flex gap-6 ">
+              <li> From{" "}
+                <strong>{edu.institution}</strong> in{" "}
+                <strong>{edu.graduationDate}</strong> I did{" "}
+                <strong>{edu.degree}</strong> in <strong>{edu.major}</strong>
+              </li>
+              <button
+                onClick={() => handleRemoveEducation(index)}
+                className="text-error">
+                X
+              </button>
             </div>
-          
-        )
-      }
+          ))}
+          </div>
 
-      <form className="flex"> 
-          <input onChange={(e) =>{setDegree(e.target.value)}} type="text" placeholder="Enter degree name" className="input input-bordered input-primary w-full max-w-xs" />
-          <input onChange={(e) =>{setInstitution(e.target.value)}} type="text" placeholder="Enter institution name" className="input input-bordered input-primary w-full max-w-xs" />
-          <input onChange={(e) =>{setMajor(e.target.value)}} type="text" placeholder="Enter subject name" className="input input-bordered input-primary w-full max-w-xs" />
-          <input onChange={(e) =>{setGraduationDate(e.target.value)}} type="text" placeholder="Enter graduation date" className="input input-bordered input-primary w-full max-w-xs" />
 
-          <button type="submit" onClick={handleAddEducation} className="btn btn-outline btn-primary">Add new educational qualification</button>
+          <form>
+            <input
+              onChange={(e) => {
+                setDegree(e.target.value);
+              }}
+              type="text"
+              placeholder="Enter degree name"
+              className="border-[1px] input-bordered input m-2"
+            />
+            <input
+              onChange={(e) => {
+                setInstitution(e.target.value);
+              }}
+              type="text"
+              placeholder="Enter institution name"
+              className="border-[1px] input-bordered input m-2"
+            />
+            <input
+              onChange={(e) => {
+                setMajor(e.target.value);
+              }}
+              type="text"
+              placeholder="Enter subject name"
+              className="border-[1px] input-bordered input m-2"
+            />
+            <input
+              onChange={(e) => {
+                setGraduationDate(e.target.value);
+              }}
+              type="text"
+              placeholder="Enter graduation date"
+              className="border-[1px] input-bordered input m-2"
+            />
+
+            <button
+              type="submit"
+              onClick={handleAddEducation}
+              className="hover:underline btn bg-transparent hover:text-primary px-5 normal-case text-[16px] font-medium border-none hover:bg-transparent transition-all">
+              ↻ Update with New Educational Qualification
+            </button>
+          </form>
+        </div>
+
+
+              <hr className="my-5"/>
+
+
+
+        <form ref={formRef} onSubmit={handleSubmit}>
+<div className="flex flex-col">
+<label htmlFor="desiredJobTitle">
+            Desired Job Title
+            <input
+              type="text"
+              id="desiredJobTitle"
+              name="desiredJobTitle"
+              placeholder="Desired Job Title"
+              className="border-[1px] input-bordered input m-2"
+              defaultValue={employeeData?.desiredJobTitle}
+            />
+          </label>
+
+
+          <label htmlFor="preferredJobLocation">
+            Preferred Job Location
+            <input
+              type="text"
+              id="preferredJobLocation"
+              name="preferredJobLocation"
+              placeholder="Preferred Job Location"
+              className="border-[1px] input-bordered input m-2"
+              defaultValue={employeeData?.preferredJobLocation}
+            />
+          </label>
+
+          <label htmlFor="phone">
+            Phone Number
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              placeholder="Phone Number"
+              className="border-[1px] input-bordered input m-2"
+              defaultValue={employeeData?.phone}
+            />
+          </label>
+
+          <label htmlFor="address">
+            Address
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="Address"
+              className="border-[1px] input-bordered input m-2"
+              defaultValue={employeeData?.address}
+            />
+          </label>
+</div>
+          <div className="card-actions justify-end mt-8 w-full">
+            <button className="btn bg-primary text-base-100 px-5 normal-case text-[16px] font-medium border-none hover:bg-neutral">
+              Update
+            </button>
+          </div>
         </form>
-     </div>
+      </div>
 
-    <form ref={formRef} onSubmit={handleSubmit}>
-      <p>Current desired job title: {employeeData?.desiredJobTitle}</p>
-      <label htmlFor="desiredJobTitle">
-        Desired Job Title
-        <input
-          type="text"
-          id="desiredJobTitle"
-          name="desiredJobTitle"
-          placeholder="Desired Job Title"
-        />
-      </label>
-      
-
-      <p>Current Preferred job location: {employeeData?.preferredJobLocation}</p>
-      <label htmlFor="preferredJobLocation">
-        Preferred Job Location
-        <input
-          type="text"
-          id="preferredJobLocation"
-          name="preferredJobLocation"
-          placeholder="Preferred Job Location"
-        />
-      </label>
-      
-
-      <p>Current phone number: {employeeData?.phone}</p>
-      <label htmlFor="phone">
-        Phone Number
-        <input
-          type="text"
-          id="phone"
-          name="phone"
-          placeholder="Phone Number"
-        />
-      </label>
-      
-
-      <p>Current Address: {employeeData?.address}</p>
-      <label htmlFor="address">
-        Address
-        <input
-          type="text"
-          id="address"
-          name="address"
-          placeholder="Address"
-        />
-      </label>
-
-      <button type="submit" className="btn btn-outline btn-secondary">Update </button>
-      
-    </form>
-
-
-
-
-
-
-<Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
 
 export default UpdateEmployeeProfile;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 

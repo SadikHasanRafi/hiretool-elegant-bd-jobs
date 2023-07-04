@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { JobContext } from "../../Context/JobsProvider";
 import ShowJob from "./ShowJob";
+import Loading from "../Shared/Loading";
 
 const ShowAllJobs = () => {
   const { fetchAllJobs } = useContext(JobContext);
@@ -127,7 +128,7 @@ const ShowAllJobs = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-[70vw] mx-auto mb-20">
             {isLoading ? (
-              <p>Loading...</p>
+              <Loading></Loading>
             ) : (
               <>
                 {allJobs.map((job) => {

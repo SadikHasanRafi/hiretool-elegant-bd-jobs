@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import axios from "axios";
 import Notification from "./Notification/Notification";
+import Loading from "../../../Shared/Loading";
 
 const EmployeeNotifications = () => {
   const { user } = useContext(AuthContext);
@@ -81,7 +82,7 @@ const EmployeeNotifications = () => {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <Loading></Loading>
       ) : (
         interviewWith.map((interviewWith, index) => (
           <Notification

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
+import Loading from "../../../Shared/Loading";
 
 const RejectedCompany = () => {
 
@@ -67,7 +68,7 @@ const RejectedCompany = () => {
       return (
         <div>
           {isLoading ? (
-            <p>Loading...</p>
+            <Loading></Loading>
           ) : companies.length===0 ?
            (
             <p>No rejected companies</p>

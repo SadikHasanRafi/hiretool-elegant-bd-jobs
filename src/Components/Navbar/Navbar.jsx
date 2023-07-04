@@ -14,7 +14,8 @@ const Navbar = () => {
   const menuItems = (
     <>
     <NavLink   className={({ isActive }) => isActive ? "text-primary btnOnlyText" : "text-black btnOnlyText"} to="/show-all-jobs">All Jobs</NavLink>
-    <NavLink   className={({ isActive }) => isActive ? "text-primary btnOnlyText" : "text-black btnOnlyText"} to="/review">Reviews</NavLink>
+    <NavLink   className={({ isActive }) => isActive ? "text-primary btnOnlyText" : "text-black btnOnlyText"} to="/review">Review</NavLink>
+    <NavLink   className={({ isActive }) => isActive ? "text-primary btnOnlyText" : "text-black btnOnlyText"} to="/contact-us">Contact Us</NavLink>
 </>
 );
 
@@ -51,7 +52,7 @@ const Navbar = () => {
           ) : (
             <>
           <NavLink   className={({ isActive }) => isActive ? "text-primary btnOnlyText" : "text-black btnOnlyText"} to="/login">Login</NavLink>
-          <NavLink   className={({ isActive }) => isActive ? "text-primary btn-style" : "text-black btn-style"} to="/signup">Sign Up</NavLink>
+          <NavLink   className={({ isActive }) => isActive ? "btn-style" : " btn-stroked"} to="/signup">Sign Up</NavLink>
             </>
           )}
         </div>

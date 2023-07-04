@@ -8,7 +8,7 @@
   @apply btn bg-transparent hover:text-primary px-5 normal-case text-[16px] font-medium border-none hover:bg-transparent transition-all;
 }
 .btn-stroked{
-  @apply btn btn-outline btn-primary text-primary  hover:bg-primary hover:border-primary normal-case;
+  @apply btn btn-outline btn-primary text-primary px-5 hover:bg-primary text-[16px] font-medium hover:border-primary normal-case;
 }
 .card-clicked{
   @apply focus-visible:outline focus-visible:outline-primary;

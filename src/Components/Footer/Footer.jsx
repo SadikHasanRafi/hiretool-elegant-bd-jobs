@@ -1,22 +1,22 @@
 import "react";
 import logo from "../../assets/logo.svg"
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="">
         <footer className="footer p-10 bg-primary bg-opacity-10 text-base-content items-center md:place-content-evenly place-content-start">
         <div>
     <span className="footer-title">Services</span> 
-    <a className="link link-hover">Branding</a> 
-    <a className="link link-hover">Design</a> 
-    <a className="link link-hover">Marketing</a> 
-    <a className="link link-hover">Advertisement</a>
+    <Link className="link link-hover">Branding</Link> 
+    <Link className="link link-hover">Design</Link> 
+    <Link className="link link-hover">Marketing</Link> 
+    <Link className="link link-hover">Advertisement</Link>
   </div>
   <div>
     <span className="footer-title">Company</span> 
-    <a className="link link-hover">About us</a> 
-    <a className="link link-hover">Contact</a> 
-    <a className="link link-hover">Jobs</a> 
-    <a className="link link-hover">Press kit</a>
+    <Link className="link link-hover">About us</Link> 
+    <Link to="/contact-us" className="link link-hover">Contact</Link> 
+    <Link to="/show-all-jobs" className="link link-hover">Jobs</Link> 
   </div> 
   <div>
     <span className="footer-title">Newsletter</span> 

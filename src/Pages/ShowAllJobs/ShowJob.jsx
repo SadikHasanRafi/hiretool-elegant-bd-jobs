@@ -53,7 +53,7 @@ const ShowJob = ({ job }) => {
             <button onClick={handleOnclickSaveLater} className="btn-style">
               Save it
             </button>
-            <button onClick={handleOnclickShowDetails} className="btn-style">
+            <button onClick={handleOnclickShowDetails} className="btn-stroked">
               Show details
             </button>
           </div>

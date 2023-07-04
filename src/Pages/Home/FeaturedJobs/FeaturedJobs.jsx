@@ -29,13 +29,14 @@ const FeaturedJobs =() => {
       <div className="grid gap-5 w-full">
         {jobs.reverse().slice(0, 3).map((job) => (
           <Job
-            company={job?.companyName || "Company Name"}
+            company={job?.companyName || <span className="italic">Company Name Undefined</span>}
             key={job?._id}
-            description={job?.jobDescription || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur hic at et fugit placeat assumenda voluptates quia labore minus ipsam sint quaerat eligendi, sequi temporibus in veritatis, asperiores beatae deserunt veniam? tae?"}
-            category={job?.categories || "Category"}
-            location={job?.location || "location"}
-            requirements={job.requirements || "requirements"}
+            description={job?.jobDescription || <span className="italic">Description Undefined</span>}
+            category={job?.categories || <span className="italic">Category Undefined</span>}
+            location={job?.location || <span className="italic">Location Undefined</span>}
+            requirements={job.requirements}
             title={job.jobTitle}
+            _id={job?._id}
           ></Job>
         ))}
       </div>

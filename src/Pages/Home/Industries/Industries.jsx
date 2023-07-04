@@ -31,7 +31,7 @@ const Industries = () => {
 
   return (
     <div className="w-full justify-center flex flex-col items-center py-[10rem] ">
-      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-8">Various types of industries</p>
+      <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-8">Various kinds of industries</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:w-[80vw] w-[90vw] gap-5 content-center">
         {industries.map(industry => <Industry title={industry.title} key={industry._id} img={industry.img}></Industry>)}
       </div>

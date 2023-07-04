@@ -2,6 +2,7 @@
 import { createContext, useContext, useState } from "react";
 import { AuthContext } from "./AuthProvider";
 import axios from "axios";
+import Loading from "../Pages/Shared/Loading";
 
 export const JobContext = createContext();
 
@@ -59,7 +60,7 @@ const JobsProvider = ({ children }) => {
   };
 
   if (loading == true) {
-    return <p>Loading from jobs...</p>;
+    return <Loading></Loading>;
   }
   return <JobContext.Provider value={jobInfo}>{children}</JobContext.Provider>;
 };

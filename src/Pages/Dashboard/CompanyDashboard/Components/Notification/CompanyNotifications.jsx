@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../../../../Context/AuthProvider";
 import CompanyNotification from "./CompanyNotification";
+import Loading from "../../../../Shared/Loading";
 
 const CompanyInfoComponent = () => {
   const [dataForNotifications, setDataForNotifications] = useState([]);
@@ -35,7 +36,7 @@ const CompanyInfoComponent = () => {
   return (
     <div>
       {isLoading ? (
-        <p>Loading...</p> // Show loading indicator only for the initial API call
+        <Loading></Loading> // Show loading indicator only for the initial API call
       ) : (
         <div>
           <p>compnay notifications</p>

@@ -3,6 +3,7 @@ import { AuthContext } from "../../Context/AuthProvider";
 import CompanyDashboard from "./CompanyDashboard/CompanyDashboard";
 import EmployeeDashboard from "./EmployeeDashboard/EmployeeDashboard";
 import SuperAdminDashboard from "./SuperAdminDashboard/SuperAdminDashboard";
+import Loading from "../Shared/Loading";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -37,7 +38,7 @@ const Dashboard = () => {
   return (
     <div>
     {isLoading ? (
-      <p>Loading...</p> 
+      <Loading></Loading>
     ) : (
       <>
         {role === "superAdmin" ? (

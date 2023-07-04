@@ -3,7 +3,6 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import jobSeeker from "../../assets/Search engines-bro.svg";
 import jobGiver from "../../assets/Recommendation letter-bro.svg";
@@ -56,7 +55,6 @@ const SetRole = () => {
     }
 
     const handleOnclickEmployee = () => {
-        toast.success('Successfully toasted!')
      
 
         /********just for testing perpouse*****/
@@ -149,7 +147,6 @@ const SetRole = () => {
         </div>
       </div>
     </div>
-            <Toaster></Toaster>
         </div>
     );
 };

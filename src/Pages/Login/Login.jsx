@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../../Context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const emailRef = useRef(null);
@@ -63,9 +63,11 @@ const Login = () => {
                   ref={passwordRef}
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
+                  <p className="label-text-alt">Don't have any account? 
+                  <Link to="/signup" className="label-text-alt link link-hover text-primary">
+                     Create Account
+                  </Link>
+                  </p>
                 </label>
                 <span className="text-xs text-red-600">{error}</span>
               </div>

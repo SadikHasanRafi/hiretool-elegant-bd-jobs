@@ -5,11 +5,11 @@ import undefinedImg from "../../assets/undefinedImg.jpg"
 
 const Review = ({review}) => {
     return (
-        <div className='card-style py-10 flex flex-col items-center'>
+        <div className='card-style py-10 flex flex-col items-center p-7'>
             <img src={review?.photoURL || review?.companyLogo || undefinedImg} className='w-20 mb-4' alt="" />
-            <p className='font-bold text-4xl text-yellow-500'> {review?.rating}.00</p>
-            <p><strong className='capitalize'>{review?.displayName}</strong></p>
-            <p>{review?.review}</p>
+            <p className='font-bold text-3xl text-yellow-500'> {review?.rating}.00</p>
+            <p><strong className='capitalize text-xl '>{review?.displayName}</strong></p>
+            <p className='mt-4'>{review?.review}</p>
         </div>
     );
 };

@@ -29,13 +29,15 @@ import ShowAllActiveEmployees from '../Pages/Dashboard/SuperAdminDashboard/Compo
 import ShowAllRegisteredCompany from '../Pages/Dashboard/SuperAdminDashboard/Components/ShowAllRegisteredCompany';
 import RejectedCompany from '../Pages/Dashboard/SuperAdminDashboard/Components/RejectedCompany';
 import Review from '../Pages/Reviews/Review';
+import RequireAuth from '../Components/RequireAuth/RequireAuth';
+import ContactUs from '../Pages/ContactUs/ContactUs';
 
 
     
     const router = createBrowserRouter([
         {
           path: "/",
-          element: <MainLayout></MainLayout>,
+          element: <MainLayout></MainLayout>,//////////////
           children: [
             {
               path: "/",
@@ -45,7 +47,7 @@ import Review from '../Pages/Reviews/Review';
               element:<Signup></Signup>///////////
             },{
               path: "/setrole",
-              element: <SetRole></SetRole>////////////
+              element: <RequireAuth><SetRole></SetRole></RequireAuth>////////////
             },{
               path: "/login",
               element: <Login></Login>//////////////////
@@ -63,16 +65,16 @@ import Review from '../Pages/Reviews/Review';
               element:<ShowAllJobs></ShowAllJobs>///////////
             },{
               path:"/contact-us",
-              element:<p>Contact us page not builded</p>
+              element: <ContactUs></ContactUs>
             },{
               path:"/review",
-              element:<Review></Review>
+              element: <RequireAuth><Review></Review></RequireAuth>/////////
             },{
-              element:<EmployeeSeesJobDetails></EmployeeSeesJobDetails>,
+              element:<RequireAuth><EmployeeSeesJobDetails></EmployeeSeesJobDetails></RequireAuth>,
               path:"/:_id"
             },{
               path:"/dashboard",
-              element:<Dashboard></Dashboard>, //
+              element:<RequireAuth><Dashboard></Dashboard></RequireAuth>, //////////
               children: [
                 {
                   index: true,
@@ -83,7 +85,7 @@ import Review from '../Pages/Reviews/Review';
                   element:<UpdateEmployeeProfile></UpdateEmployeeProfile> /////
                 },{
                   path:"/dashboard/saved-jobs",
-                  element:<SavedJobs></SavedJobs> 
+                  element:<SavedJobs></SavedJobs> ///////
                 },{
                   path:"/dashboard/applied-jobs",
                   element:<AppliedJobs></AppliedJobs>
@@ -113,19 +115,19 @@ import Review from '../Pages/Reviews/Review';
                   element:<EmployeesAppliedForJob></EmployeesAppliedForJob>/////////
                 },{
                   path:"/dashboard/show-employee-details/:email",
-                  element:<ShowEmployeeDetails></ShowEmployeeDetails>
+                  element:<ShowEmployeeDetails></ShowEmployeeDetails>///////////
                 },{
                   path:"/dashboard/show-pending-company",
-                  element:<ShowAllPendingCompany></ShowAllPendingCompany>
+                  element:<ShowAllPendingCompany></ShowAllPendingCompany>///////////333333333
                 },{
                   path:"/dashboard/show-all-active-employee",
-                  element:<ShowAllActiveEmployees></ShowAllActiveEmployees>
+                  element:<ShowAllActiveEmployees></ShowAllActiveEmployees>//3333333333333
                 },{
                   path:"/dashboard/show-all-registered-company",
-                  element:<ShowAllRegisteredCompany></ShowAllRegisteredCompany>
+                  element:<ShowAllRegisteredCompany></ShowAllRegisteredCompany>//33333333333333
                 },{
                   path:"/dashboard/show-all-rejected-company",
-                  element:<RejectedCompany></RejectedCompany>
+                  element:<RejectedCompany></RejectedCompany>//////////33333333333
                 }
               ]//dashboard array finishes here
             }

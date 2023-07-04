@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../Context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../Shared/Loading";
 
 const ApprovalPage = () => {
   const { user } = useContext(AuthContext);
@@ -41,7 +42,7 @@ const ApprovalPage = () => {
   return (
     <div>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loading></Loading>
       ) : (
         <div className="min-h-[60vh] flex justify-center items-center">
           {isApproved && isRejected === "2" ? (

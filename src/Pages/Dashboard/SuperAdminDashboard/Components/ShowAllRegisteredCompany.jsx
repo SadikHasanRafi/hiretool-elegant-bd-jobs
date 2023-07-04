@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
+import Loading from "../../../Shared/Loading";
 
 const ShowAllRegisteredCompany = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -83,7 +84,7 @@ const ShowAllRegisteredCompany = () => {
       return (
         <div>
           {isLoading ? (
-            <p>Loading...</p>
+            <Loading></Loading>
           ) : companies.length===0 ?
            (
             <p>No registered company</p>

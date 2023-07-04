@@ -1,7 +1,18 @@
 /* eslint-disable react/prop-types */
 import "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Job = (props) => {
+
+  const navigate = useNavigate()
+
+  const handleOnclickShowDetails = () => {
+    navigate(`/${props._id}`);
+    console.log(props._id);
+  };
+
+
   return (
     <div>
       <div className="card-style cursor-pointer">
@@ -13,21 +24,9 @@ const Job = (props) => {
             <p>{props.company} - {props.category}</p>
             <p className="mb-3">{props.location}</p>
             <p className="w-[800px]">{props.description}</p>
-
-            {/* requirements */}
-            <p className="mt-1">
-            {props.requirements.map((requirement) => {
-              if(requirement.length > 0){
-                  <span className="badge-ghost badge">{requirement}</span>
-                  // console.log(requirement);
-                }
-              })}
-              </p>
-
-
           </div>
           <div className="card-actions justify-end block">
-            <button className="btn-style">See details</button>
+            <button className="btn-style" onClick={handleOnclickShowDetails}>See details</button>
           </div>
         </div>
       </div>

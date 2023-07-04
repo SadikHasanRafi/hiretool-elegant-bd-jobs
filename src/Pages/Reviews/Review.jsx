@@ -2,12 +2,14 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Review = () => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleReviewChange = (event) => {
     setReview(event.target.value);
@@ -41,6 +43,7 @@ const Review = () => {
       // Handle error scenarios
     } finally {
       setLoading(false);
+      navigate("/")
     }
   };
 
@@ -153,13 +156,13 @@ const Review = () => {
 
 
 
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="card w-96 border-[#e9e9e9] border-[0.2px] bg-base-100">
-        <div className="card flex-shrink-0 w-full max-w-sm bg-base-100">
-          <div className="card-body">
+    <div className="flex flex-col justify-center items-center min-h-screen">
             <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-5">
               Review
             </p>
+      <div className="card w-96 border-[#e9e9e9] border-[0.2px] bg-base-100">
+        <div className="card flex-shrink-0 w-full max-w-sm bg-base-100">
+          <div className="card-body">
 
             <div>
             <div className="form-control mb-4 w-full">
