@@ -73,6 +73,7 @@ const SetComPanyProfile = () => {
               onChange={handleChange}
               className="border-[1px] input-bordered input m-2 w-full"
               placeholder="Company Name"
+              required
             />
           </div>
     
@@ -85,6 +86,7 @@ const SetComPanyProfile = () => {
               onChange={handleChange}
               className="border-[1px] input-bordered input m-2 w-full"
               placeholder="register ID"
+              required
             />
           </div>
     
@@ -97,6 +99,7 @@ const SetComPanyProfile = () => {
               onChange={handleChange}
               className="border-[1px] input-bordered input m-2 w-full"
               placeholder="Industry"
+              required
             />
           </div>
     
@@ -110,6 +113,7 @@ const SetComPanyProfile = () => {
               onChange={handleChange}
               className="border-[1px] input-bordered input m-2 w-full"
               placeholder="Locations"
+              required
             />
           </div>
     

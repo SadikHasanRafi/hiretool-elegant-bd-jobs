@@ -39,17 +39,19 @@ const CompanyInfoComponent = () => {
         <Loading></Loading> // Show loading indicator only for the initial API call
       ) : (
         <div>
-          <p>compnay notifications</p>
-          {dataForNotifications.map((notification, i) => {
-            return (<CompanyNotification
-              key={i}
-              index={i}
-              notification={notification}
-            ></CompanyNotification>)
+          <p className="text-center md:text-4xl text-3xl font-semibold text-primary mb-8">
+            Notifications
+          </p>
+        <div className="grid grid-cols-4 gap-5">
+        {dataForNotifications.map((notification, i) => {
+            return (
+              <CompanyNotification
+                key={i}
+                index={i}
+                notification={notification}></CompanyNotification>
+            );
           })}
-
-     
-
+        </div>
         </div>
       )}
     </div>
